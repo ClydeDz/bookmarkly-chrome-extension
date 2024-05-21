@@ -3,6 +3,10 @@ import "./App.css";
 import { Demo } from "./Demo";
 
 function App() {
+  chrome.bookmarks.getTree((results) => {
+    console.log(results);
+  });
+
   return (
     <div className="App">
       <header className="App-header">
