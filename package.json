@@ -15,7 +15,12 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "watch": "npm-watch",
+    "go": "concurrently \"npm run watch\" \"npm run start\""
+  },
+  "watch": {
+    "build": "src/"
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +39,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "npm-watch": "^0.13.0"
   }
 }
