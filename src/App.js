@@ -1,31 +1,17 @@
-import logo from "./logo.svg";
 import "./App.css";
-import { Demo } from "./Demo";
+import { PopulatedPage } from "./pages/PopulatedPage/PopulatedPage";
+
+// https://stackoverflow.com/a/15750809/11480716
+// https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.stackoverflow.com&sz=128
+// https://www.google.com/s2/favicons?domain=dev.to&sz=128
+// https://icons.duckduckgo.com/ip3/dev.to.ico
 
 function App() {
-  chrome.bookmarks.getTree((results) => {
-    console.log(results);
-  });
+  // chrome.bookmarks.getTree((results) => {
+  //   console.log(results);
+  // });
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Demo />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  return <PopulatedPage />;
 }
 
 export default App;
