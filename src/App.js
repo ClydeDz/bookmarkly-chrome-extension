@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { PopulatedPage } from "./pages/PopulatedPage/PopulatedPage";
 import { AppContext } from "./state/context/AppContext";
 import { getBookmarksTree } from "./api/bookmarksApi/bookmarksApi";
+import { Provider } from "react-redux";
+import { store } from "./state/redux/store";
 
 function App() {
   const [bookmarks, setBookmarks] = useState(null);
@@ -16,9 +18,11 @@ function App() {
   // });
 
   return (
-    <AppContext.Provider value={bookmarks}>
-      <PopulatedPage />
-    </AppContext.Provider>
+    <Provider store={store}>
+      <AppContext.Provider value={bookmarks}>
+        <PopulatedPage />
+      </AppContext.Provider>
+    </Provider>
   );
 }
 
