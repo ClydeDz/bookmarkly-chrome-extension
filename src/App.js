@@ -1,17 +1,26 @@
 import "./App.css";
+import { useEffect, useState } from "react";
 import { PopulatedPage } from "./pages/PopulatedPage/PopulatedPage";
-
-// https://stackoverflow.com/a/15750809/11480716
-// https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.stackoverflow.com&sz=128
-// https://www.google.com/s2/favicons?domain=dev.to&sz=128
-// https://icons.duckduckgo.com/ip3/dev.to.ico
+import { AppContext } from "./state/context/AppContext";
+import { getBookmarksTree } from "./api/bookmarksApi/bookmarksApi";
 
 function App() {
+  const [bookmarks, setBookmarks] = useState(null);
+
+  useEffect(() => {
+    setBookmarks(getBookmarksTree());
+  }, []);
+
   // chrome.bookmarks.getTree((results) => {
   //   console.log(results);
+  //   setBookmarks(results);
   // });
 
-  return <PopulatedPage />;
+  return (
+    <AppContext.Provider value={bookmarks}>
+      <PopulatedPage />
+    </AppContext.Provider>
+  );
 }
 
 export default App;
