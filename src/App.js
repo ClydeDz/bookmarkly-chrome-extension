@@ -13,7 +13,6 @@ function App() {
 
   // chrome.bookmarks.getTree((results) => {
   //   console.log(results);
-  //   setBookmarks(results);
   // });
 
   return (
