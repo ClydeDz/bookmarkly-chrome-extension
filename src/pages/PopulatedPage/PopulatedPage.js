@@ -3,6 +3,7 @@ import { BookmarkLinks } from "../../components/BookmarkLinks/BookmarkLinks";
 import { Demo } from "../../Demo";
 import { BreadcrumbNav } from "../../components/BreadcrumbNav/BreadcrumbNav";
 import { Bookmarks } from "../../components/Bookmarks/Bookmarks";
+import { AddItem } from "../../components/AddItem/AddItem";
 
 export const PopulatedPage = () => {
   return (
@@ -19,7 +20,9 @@ export const PopulatedPage = () => {
             <Bookmarks />
             {/* <Demo /> */}
           </Grid.Col>
-          <Grid.Col span="auto">3</Grid.Col>
+          <Grid.Col span="auto">
+            <AddItem />
+          </Grid.Col>
         </Grid>
       </Container>
     </>
