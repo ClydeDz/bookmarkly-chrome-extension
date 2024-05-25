@@ -1,8 +1,11 @@
 export const getTree = () => {
-  return [];
+  chrome.bookmarks.getTree((results) => {
+    return results;
+  });
 };
 
 export const getChildren = (nodeId) => {
-  console.log(nodeId);
-  return [];
+  chrome.bookmarks.get(nodeId, (results) => {
+    return results;
+  });
 };

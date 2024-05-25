@@ -1,4 +1,4 @@
-export const MOCK_DATA = [
+export const GET_TREE_MOCK_DATA = [
   {
     children: [
       {
