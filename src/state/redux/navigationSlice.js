@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  value: 0,
+  currentNodeId: 1,
 };
 
 export const navigationSlice = createSlice({
   name: "navigation slice",
   initialState,
   reducers: {
-    incrementByAmount: (state, action) => {
-      state.value += action.payload;
+    setCurrentNodeId: (state, action) => {
+      state.currentNodeId = action.payload;
     },
   },
 });
 
-export const { incrementByAmount } = navigationSlice.actions;
+export const { setCurrentNodeId } = navigationSlice.actions;
 
 export default navigationSlice.reducer;
