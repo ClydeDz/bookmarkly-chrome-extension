@@ -5,6 +5,12 @@ export const getTree = () => {
 };
 
 export const getChildren = (nodeId) => {
+  chrome.bookmarks.getChildren(nodeId, (results) => {
+    return results;
+  });
+};
+
+export const get = (nodeId) => {
   chrome.bookmarks.get(nodeId, (results) => {
     return results;
   });

@@ -24,7 +24,14 @@ export const Bookmarks = () => {
     >
       {bookmarks.map((item) => {
         return (
-          <Card shadow="sm" padding="lg" radius="md" withBorder miw={"sm"}>
+          <Card
+            shadow="sm"
+            padding="lg"
+            radius="md"
+            withBorder
+            miw={"sm"}
+            key={item.title}
+          >
             <Card.Section>
               <Image
                 src={GeoPattern.generate(item.url).toDataUri()}
