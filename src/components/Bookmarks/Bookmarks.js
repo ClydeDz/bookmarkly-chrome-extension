@@ -49,9 +49,6 @@ export const Bookmarks = () => {
               <Text fw={500} inline={true}>
                 {truncateString(item.title, 20)}
               </Text>
-              {/* <Badge color="green" circle>
-                9
-              </Badge> */}
             </Group>
 
             <Button color="blue" fullWidth mt="md" radius="md">
