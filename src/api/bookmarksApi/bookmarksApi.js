@@ -1,16 +1,51 @@
-import { getMock, getChildrenMock, getTreeMock } from "../mockApi/mockApi";
-import { get, getChildren, getTree } from "../chromeApi/chromeApi";
+import {
+  getMock,
+  getChildrenMock,
+  getTreeMock,
+  getRecentMock,
+} from "../mockApi/mockApi";
+import { get, getChildren, getRecent, getTree } from "../chromeApi/chromeApi";
+import {
+  DEFAULT_RECENT_BOOKMARKS_FOLDER,
+  NUMBER_OF_RECENT_BOOKMARKS,
+  RECENT_BOOKMARKS_NODE_ID,
+} from "../../const/app";
 
 export const getBookmarksTree = () => {
-  return process.env.NODE_ENV === "development" ? getTreeMock() : getTree();
+  return isDevelopmentEnvironment() ? getTreeMock() : getTree();
 };
 
 export const getBookmarksAtNodeId = (nodeId) => {
-  return process.env.NODE_ENV === "development"
-    ? getChildrenMock()
-    : getChildren(nodeId);
+  if (nodeId === RECENT_BOOKMARKS_NODE_ID) return getRecentBookmarks();
+
+  return isDevelopmentEnvironment() ? getChildrenMock() : getChildren(nodeId);
 };
 
 export const getInfoAboutNodeId = (nodeId) => {
-  return process.env.NODE_ENV === "development" ? getMock(nodeId) : get(nodeId);
+  if (nodeId === RECENT_BOOKMARKS_NODE_ID) return getInfoAboutRecentBookmarks();
+
+  return isDevelopmentEnvironment() ? getMock(nodeId) : get(nodeId);
+};
+
+const getInfoAboutRecentBookmarks = () => {
+  return [
+    {
+      dateAdded: 1716273675228,
+      dateGroupModified: 1716600522433,
+      id: RECENT_BOOKMARKS_NODE_ID,
+      index: 0,
+      parentId: RECENT_BOOKMARKS_NODE_ID,
+      title: DEFAULT_RECENT_BOOKMARKS_FOLDER,
+    },
+  ];
+};
+
+const getRecentBookmarks = () => {
+  return isDevelopmentEnvironment()
+    ? getRecentMock()
+    : getRecent(NUMBER_OF_RECENT_BOOKMARKS);
+};
+
+const isDevelopmentEnvironment = () => {
+  return process.env.NODE_ENV === "development";
 };

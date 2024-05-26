@@ -3,22 +3,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { getInfoAboutNodeId } from "../../api/bookmarksApi/bookmarksApi";
 import { useEffect, useState } from "react";
 import { setCurrentNodeId } from "../../state/redux/navigationSlice";
+import { RECENT_BOOKMARKS_NODE_ID } from "../../const/app";
 
 export const BreadcrumbNav = () => {
   const dispatch = useDispatch();
+  const [linkTree, setLinkTree] = useState([]);
   const currentBookmarkNodeId = useSelector(
     (state) => state.navigation.currentNodeId
   );
-  const [linkTree, setLinkTree] = useState([]);
 
   const createLinkTree = (nodeId) => {
+    if (!nodeId) return;
+
     const bookmarkNode = getInfoAboutNodeId(nodeId)[0];
+
     setLinkTree((oldArray) => [
       ...oldArray,
       { title: bookmarkNode.title, nodeId },
     ]);
 
-    if (bookmarkNode.parentId !== "0") {
+    if (bookmarkNode.parentId !== RECENT_BOOKMARKS_NODE_ID) {
       createLinkTree(bookmarkNode.parentId);
     }
   };

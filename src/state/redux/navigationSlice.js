@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RECENT_BOOKMARKS_NODE_ID } from "../../const/app";
 
 const initialState = {
-  currentNodeId: 1,
+  currentNodeId: RECENT_BOOKMARKS_NODE_ID,
 };
 
 export const navigationSlice = createSlice({

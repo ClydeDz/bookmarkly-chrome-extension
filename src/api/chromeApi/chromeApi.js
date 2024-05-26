@@ -15,3 +15,9 @@ export const get = (nodeId) => {
     return results;
   });
 };
+
+export const getRecent = (numberOfItems) => {
+  chrome.bookmarks.getRecent(numberOfItems, (results) => {
+    return results;
+  });
+};

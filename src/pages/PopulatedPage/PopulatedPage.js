@@ -1,6 +1,5 @@
 import { Grid, Container } from "@mantine/core";
 import { BookmarkLinks } from "../../components/BookmarkLinks/BookmarkLinks";
-import { Demo } from "../../Demo";
 import { BreadcrumbNav } from "../../components/BreadcrumbNav/BreadcrumbNav";
 import { Bookmarks } from "../../components/Bookmarks/Bookmarks";
 import { AddItem } from "../../components/AddItem/AddItem";
@@ -18,7 +17,6 @@ export const PopulatedPage = () => {
           </Grid.Col>
           <Grid.Col span={7}>
             <Bookmarks />
-            {/* <Demo /> */}
           </Grid.Col>
           <Grid.Col span="auto">
             <AddItem />
