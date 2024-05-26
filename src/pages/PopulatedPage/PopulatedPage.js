@@ -2,12 +2,11 @@ import { Grid, Container } from "@mantine/core";
 import { BookmarkLinks } from "../../components/BookmarkLinks/BookmarkLinks";
 import { BreadcrumbNav } from "../../components/BreadcrumbNav/BreadcrumbNav";
 import { Bookmarks } from "../../components/Bookmarks/Bookmarks";
-import { AddItem } from "../../components/AddItem/AddItem";
 
 export const PopulatedPage = () => {
   return (
     <>
-      <Container fluid>
+      <Container fluid mb={"sm"}>
         <BreadcrumbNav />
       </Container>
       <Container size="md" fluid>
@@ -15,11 +14,8 @@ export const PopulatedPage = () => {
           <Grid.Col span={2}>
             <BookmarkLinks />
           </Grid.Col>
-          <Grid.Col span={7}>
-            <Bookmarks />
-          </Grid.Col>
           <Grid.Col span="auto">
-            <AddItem />
+            <Bookmarks />
           </Grid.Col>
         </Grid>
       </Container>
