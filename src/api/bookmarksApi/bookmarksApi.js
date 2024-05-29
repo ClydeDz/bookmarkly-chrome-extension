@@ -6,7 +6,7 @@ import {
 } from "../mockApi/mockApi";
 import { get, getChildren, getRecent, getTree } from "../chromeApi/chromeApi";
 import {
-  DEFAULT_RECENT_BOOKMARKS_FOLDER,
+  RECENT_BOOKMARKS_FOLDER,
   NUMBER_OF_RECENT_BOOKMARKS,
   RECENT_BOOKMARKS_NODE_ID,
 } from "../../const/app";
@@ -22,22 +22,7 @@ export const getBookmarksAtNodeId = (nodeId) => {
 };
 
 export const getInfoAboutNodeId = (nodeId) => {
-  if (nodeId === RECENT_BOOKMARKS_NODE_ID) return getInfoAboutRecentBookmarks();
-
   return isDevelopmentEnvironment() ? getMock(nodeId) : get(nodeId);
-};
-
-const getInfoAboutRecentBookmarks = () => {
-  return [
-    {
-      dateAdded: 1716273675228,
-      dateGroupModified: 1716600522433,
-      id: RECENT_BOOKMARKS_NODE_ID,
-      index: 0,
-      parentId: RECENT_BOOKMARKS_NODE_ID,
-      title: DEFAULT_RECENT_BOOKMARKS_FOLDER,
-    },
-  ];
 };
 
 const getRecentBookmarks = () => {

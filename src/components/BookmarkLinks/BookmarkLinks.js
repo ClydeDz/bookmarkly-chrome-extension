@@ -3,7 +3,7 @@ import { AppContext } from "../../state/context/AppContext";
 import { useContext } from "react";
 import {
   DEFAULT_BOOKMARKS_FOLDER,
-  DEFAULT_RECENT_BOOKMARKS_FOLDER,
+  RECENT_BOOKMARKS_FOLDER,
   RECENT_BOOKMARKS_NODE_ID,
 } from "../../const/app";
 import { truncateString } from "../../utils/string";
@@ -63,9 +63,9 @@ export const BookmarkLinks = () => {
   const renderRecentBookmarksNavItem = () => {
     return (
       <NavLink
-        label={truncateString(DEFAULT_RECENT_BOOKMARKS_FOLDER, 26)}
+        label={truncateString(RECENT_BOOKMARKS_FOLDER, 26)}
         href="#"
-        key={DEFAULT_RECENT_BOOKMARKS_FOLDER}
+        key={RECENT_BOOKMARKS_FOLDER}
         onClick={() => onMenuItemClick(RECENT_BOOKMARKS_NODE_ID)}
         variant="filled"
         active={RECENT_BOOKMARKS_NODE_ID === nodeId}

@@ -1,3 +1,8 @@
+import {
+  RECENT_BOOKMARKS_NODE_ID,
+  RECENT_BOOKMARKS_NODE_INFO,
+} from "../../const/app";
+
 export const getTree = () => {
   return chrome.bookmarks.getTree();
 };
@@ -7,6 +12,10 @@ export const getChildren = (nodeId) => {
 };
 
 export const get = (nodeId) => {
+  if (nodeId === RECENT_BOOKMARKS_NODE_ID) {
+    return Promise.resolve(RECENT_BOOKMARKS_NODE_INFO);
+  }
+
   return chrome.bookmarks.get(nodeId);
 };
 

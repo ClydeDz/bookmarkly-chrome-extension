@@ -2,6 +2,10 @@ import { GET_CHILDREN_MOCK_DATA } from "./mockData/getChildrenData";
 import { GET_TREE_MOCK_DATA } from "./mockData/getTreeData";
 import { GET_BY_ID_MOCK_DATA } from "./mockData/getByIdData";
 import { GET_RECENT_MOCK_DATA } from "./mockData/getRecentData";
+import {
+  RECENT_BOOKMARKS_NODE_ID,
+  RECENT_BOOKMARKS_NODE_INFO,
+} from "../../const/app";
 
 export const getTreeMock = () => {
   return Promise.resolve(GET_TREE_MOCK_DATA);
@@ -12,6 +16,10 @@ export const getChildrenMock = () => {
 };
 
 export const getMock = (nodeId) => {
+  if (nodeId === RECENT_BOOKMARKS_NODE_ID) {
+    return Promise.resolve(RECENT_BOOKMARKS_NODE_INFO);
+  }
+
   return Promise.resolve(GET_BY_ID_MOCK_DATA[nodeId]);
 };
 
