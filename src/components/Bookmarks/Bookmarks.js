@@ -36,7 +36,12 @@ export const Bookmarks = () => {
     >
       {bookmarks.map((item) => {
         return (
-          <Paper shadow="xs" p="sm" w={"100%"}>
+          <Paper
+            shadow="xs"
+            p="sm"
+            w={"100%"}
+            key={`${item.title}${Math.random()}`}
+          >
             <Group justify="space-between">
               <Group justify="flex-start">
                 {item.url ? (
