@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getBookmarksAtNodeId } from "../../api/bookmarksApi/bookmarksApi";
 import { useEffect, useState } from "react";
 import {
@@ -12,10 +12,13 @@ import {
 } from "@mantine/core";
 import { truncateString } from "../../utils/string";
 import { IconEdit, IconTrash, IconFolder } from "@tabler/icons-react";
+import { setCurrentNodeId } from "../../state/redux/navigationSlice";
+import "./bookmarks.css";
 
 export const Bookmarks = () => {
   const nodeId = useSelector((state) => state.navigation.currentNodeId);
   const [bookmarks, setBookmarks] = useState([]);
+  const dispatch = useDispatch();
 
   const loadBookmarkData = async () => {
     setBookmarks(await getBookmarksAtNodeId(nodeId));
@@ -24,6 +27,12 @@ export const Bookmarks = () => {
   useEffect(() => {
     loadBookmarkData();
   }, [nodeId]);
+
+  const onCardClick = (item) => {
+    item.url && window.open(item.url, "_blank")?.focus();
+
+    dispatch(setCurrentNodeId(item.id));
+  };
 
   return (
     <Flex
@@ -41,6 +50,8 @@ export const Bookmarks = () => {
             p="sm"
             w={"100%"}
             key={`${item.title}${Math.random()}`}
+            onClick={() => onCardClick(item)}
+            className="bookmark-card"
           >
             <Group justify="space-between">
               <Group justify="flex-start">
