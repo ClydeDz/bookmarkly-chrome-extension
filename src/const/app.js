@@ -1,5 +1,7 @@
 export const DEFAULT_BOOKMARKS_FOLDER = "Bookmarks bar";
 export const RECENT_BOOKMARKS_FOLDER = "Recent bookmarks";
+export const OTHER_BOOKMARKS_FOLDER = "Other bookmarks";
+export const MOBILE_BOOKMARKS_FOLDER = "Mobile bookmarks";
 
 export const RECENT_BOOKMARKS_NODE_ID = "0";
 export const DEFAULT_BOOKMARKS_NODE_ID = "1";

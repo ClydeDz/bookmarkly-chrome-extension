@@ -9,6 +9,7 @@ import {
 import { truncateString } from "../../utils/string";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentNodeId } from "../../state/redux/navigationSlice";
+import { BookmarkIcons } from "../BookmarkIcons/BookmarkIcons";
 
 export const BookmarkLinks = () => {
   const bookmarks = useContext(AppContext);
@@ -41,6 +42,7 @@ export const BookmarkLinks = () => {
             onClick={() => onMenuItemClick(item.id)}
             variant="filled"
             active={item.id === nodeId}
+            leftSection={<BookmarkIcons bookmarkLabel={item.title} />}
           >
             {renderNavItems(item.children)}
           </NavLink>
@@ -55,6 +57,7 @@ export const BookmarkLinks = () => {
           onClick={() => onMenuItemClick(item.id)}
           variant="filled"
           active={item.id === nodeId}
+          leftSection={<BookmarkIcons bookmarkLabel={item.title} />}
         />
       );
     });
@@ -69,6 +72,7 @@ export const BookmarkLinks = () => {
         onClick={() => onMenuItemClick(RECENT_BOOKMARKS_NODE_ID)}
         variant="filled"
         active={RECENT_BOOKMARKS_NODE_ID === nodeId}
+        leftSection={<BookmarkIcons bookmarkLabel={RECENT_BOOKMARKS_FOLDER} />}
       />
     );
   };
