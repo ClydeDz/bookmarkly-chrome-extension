@@ -17,8 +17,12 @@ export const Bookmarks = () => {
   const nodeId = useSelector((state) => state.navigation.currentNodeId);
   const [bookmarks, setBookmarks] = useState([]);
 
+  const loadBookmarkData = async () => {
+    setBookmarks(await getBookmarksAtNodeId(nodeId));
+  };
+
   useEffect(() => {
-    setBookmarks(getBookmarksAtNodeId(nodeId));
+    loadBookmarkData();
   }, [nodeId]);
 
   return (

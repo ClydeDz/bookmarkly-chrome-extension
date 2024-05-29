@@ -12,10 +12,11 @@ export const BreadcrumbNav = () => {
     (state) => state.navigation.currentNodeId
   );
 
-  const createLinkTree = (nodeId) => {
+  const createLinkTree = async (nodeId) => {
     if (!nodeId) return;
 
-    const bookmarkNode = getInfoAboutNodeId(nodeId)[0];
+    const bookmarkNodeResults = await getInfoAboutNodeId(nodeId);
+    const bookmarkNode = bookmarkNodeResults[0];
 
     setLinkTree((oldArray) => [
       ...oldArray,
@@ -23,7 +24,7 @@ export const BreadcrumbNav = () => {
     ]);
 
     if (bookmarkNode.parentId !== RECENT_BOOKMARKS_NODE_ID) {
-      createLinkTree(bookmarkNode.parentId);
+      await createLinkTree(bookmarkNode.parentId);
     }
   };
 

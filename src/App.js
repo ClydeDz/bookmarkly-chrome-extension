@@ -10,13 +10,16 @@ import { Header } from "./components/Header/Header";
 function App() {
   const [bookmarks, setBookmarks] = useState(null);
 
+  const loadAppData = async () => {
+    setBookmarks(await getBookmarksTree());
+  };
+
   useEffect(() => {
-    setBookmarks(getBookmarksTree());
+    loadAppData();
   }, []);
 
-  // chrome.bookmarks.getTree((results) => {
-  //   console.log(results);
-  // });
+  // const results = await chrome.bookmarks.getRecent(4);
+  // console.log(results);
 
   return (
     <Provider store={store}>

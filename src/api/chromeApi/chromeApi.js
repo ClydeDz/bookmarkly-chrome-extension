@@ -1,23 +1,15 @@
 export const getTree = () => {
-  chrome.bookmarks.getTree((results) => {
-    return results;
-  });
+  return chrome.bookmarks.getTree();
 };
 
 export const getChildren = (nodeId) => {
-  chrome.bookmarks.getChildren(nodeId, (results) => {
-    return results;
-  });
+  return chrome.bookmarks.getChildren(nodeId);
 };
 
 export const get = (nodeId) => {
-  chrome.bookmarks.get(nodeId, (results) => {
-    return results;
-  });
+  return chrome.bookmarks.get(nodeId);
 };
 
 export const getRecent = (numberOfItems) => {
-  chrome.bookmarks.getRecent(numberOfItems, (results) => {
-    return results;
-  });
+  return chrome.bookmarks.getRecent(numberOfItems);
 };
