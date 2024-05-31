@@ -1,18 +1,11 @@
 import { Title, Container, Button, Drawer, Group } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import { AddFolder } from "../AddFolder/AddFolder";
-import { AddBookmark } from "../AddBookmark/AddBookmark";
-import { useState } from "react";
 import { ACTION_TYPE } from "../../const/app";
+import { useDispatch } from "react-redux";
+import { setDrawerType } from "../../state/redux/drawerSlice";
+import { Sidebar } from "../Sidebar/Sidebar";
 
 export const Header = () => {
-  const [opened, { open, close }] = useDisclosure(false);
-  const [drawerType, setDrawerType] = useState(ACTION_TYPE.ADD_FOLDER);
-
-  const openDrawer = (actionType) => {
-    setDrawerType(actionType);
-    open();
-  };
+  const dispatch = useDispatch();
 
   return (
     <Container fluid bg={"blue"}>
@@ -25,36 +18,20 @@ export const Header = () => {
             variant="light"
             c={"white"}
             radius="md"
-            onClick={() => openDrawer(ACTION_TYPE.ADD_FOLDER)}
+            onClick={() => dispatch(setDrawerType(ACTION_TYPE.ADD_FOLDER))}
           >
             {ACTION_TYPE.ADD_FOLDER}
           </Button>
           <Button
             variant="white"
             radius="md"
-            onClick={() => openDrawer(ACTION_TYPE.ADD_BOOKMARK)}
+            onClick={() => dispatch(setDrawerType(ACTION_TYPE.ADD_BOOKMARK))}
           >
             {ACTION_TYPE.ADD_BOOKMARK}
           </Button>
-          <Drawer
-            opened={opened}
-            onClose={close}
-            title={
-              drawerType === ACTION_TYPE.ADD_FOLDER
-                ? ACTION_TYPE.ADD_FOLDER
-                : ACTION_TYPE.ADD_BOOKMARK
-            }
-            position="right"
-            overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
-          >
-            {drawerType === ACTION_TYPE.ADD_FOLDER ? (
-              <AddFolder onSuccessCallback={close} />
-            ) : (
-              <AddBookmark onSuccessCallback={close} />
-            )}
-          </Drawer>
         </div>
       </Group>
+      <Sidebar />
     </Container>
   );
 };
