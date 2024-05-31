@@ -19,8 +19,8 @@ export const BreadcrumbNav = () => {
     const bookmarkNode = bookmarkNodeResults[0];
 
     setLinkTree((oldArray) => [
-      ...oldArray,
       { title: bookmarkNode.title, nodeId },
+      ...oldArray,
     ]);
 
     if (bookmarkNode.parentId !== RECENT_BOOKMARKS_NODE_ID) {
@@ -40,7 +40,7 @@ export const BreadcrumbNav = () => {
   return (
     <Stack align="flex-start" justify="center" gap="md" h={50}>
       <Breadcrumbs>
-        {linkTree.reverse().map((item, index) => (
+        {linkTree.map((item, index) => (
           <Anchor
             href="#"
             key={index}
