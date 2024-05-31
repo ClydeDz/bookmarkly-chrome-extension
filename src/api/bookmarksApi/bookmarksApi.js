@@ -18,7 +18,7 @@ export const getBookmarksTree = () => {
 export const getBookmarksAtNodeId = (nodeId) => {
   if (nodeId === RECENT_BOOKMARKS_NODE_ID) return getRecentBookmarks();
 
-  return isDevelopmentEnvironment() ? getChildrenMock() : getChildren(nodeId);
+  return isDevelopmentEnvironment() ? getChildrenMock(nodeId) : getChildren(nodeId);
 };
 
 export const getInfoAboutNodeId = (nodeId) => {

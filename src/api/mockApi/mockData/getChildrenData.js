@@ -1,3 +1,5 @@
+export const EMPTY_FOLDER_ID_MOCK_DATA = "12";
+
 export const GET_CHILDREN_MOCK_DATA = [
   {
     dateAdded: 1716276187106,
