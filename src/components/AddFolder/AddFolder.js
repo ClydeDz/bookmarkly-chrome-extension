@@ -1,47 +1,38 @@
 import { useForm } from "@mantine/form";
-import { NumberInput, TextInput, Button } from "@mantine/core";
+import { TextInput, Button } from "@mantine/core";
+import { useSelector } from "react-redux";
+import { createFolder } from "../../api/bookmarksApi/bookmarksApi";
 
-export const AddFolder = () => {
+export const AddFolder = (props) => {
+  const { onSuccessCallback } = props;
+  const nodeId = useSelector((state) => state.navigation.currentNodeId);
   const form = useForm({
     mode: "uncontrolled",
-    initialValues: { name: "", email: "", age: 0 },
-
-    // functions will be used to validate values at corresponding key
+    initialValues: { folderName: "" },
     validate: {
-      name: (value) =>
-        value.length < 2 ? "Name must have at least 2 letters" : null,
-      email: (value) => (/^\S+@\S+$/.test(value) ? null : "Invalid email"),
-      age: (value) =>
-        value < 18 ? "You must be at least 18 to register" : null,
+      folderName: (value) => (!value ? "Folder name cannot be empty" : null),
     },
   });
 
+  const addFolder = async (data) => {
+    await createFolder(data.folderName, nodeId)
+      .then((results) => {
+        if (results.title === data.folderName) onSuccessCallback();
+      })
+      .catch((error) => {
+        if (error) onSuccessCallback();
+      });
+  };
+
   return (
-    <form onSubmit={form.onSubmit(console.log)}>
+    <form onSubmit={form.onSubmit(addFolder)}>
       <TextInput
-        label="Name"
-        placeholder="Name"
-        key={form.key("name")}
-        {...form.getInputProps("name")}
-      />
-      <TextInput
-        mt="sm"
-        label="Email"
-        placeholder="Email"
-        key={form.key("email")}
-        {...form.getInputProps("email")}
-      />
-      <NumberInput
-        mt="sm"
-        label="Age"
-        placeholder="Age"
-        min={0}
-        max={99}
-        key={form.key("age")}
-        {...form.getInputProps("age")}
+        label="Folder name"
+        key={form.key("folderName")}
+        {...form.getInputProps("folderName")}
       />
       <Button type="submit" mt="sm">
-        Submit
+        Create
       </Button>
     </form>
   );

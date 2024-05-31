@@ -22,3 +22,7 @@ export const get = (nodeId) => {
 export const getRecent = (numberOfItems) => {
   return chrome.bookmarks.getRecent(numberOfItems);
 };
+
+export const create = (title, url, parentId) => {
+  return chrome.bookmarks.create({ title, url, parentId });
+};

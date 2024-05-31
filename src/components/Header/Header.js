@@ -48,7 +48,7 @@ export const Header = () => {
             overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
           >
             {drawerType === ACTION_TYPE.ADD_FOLDER ? (
-              <AddFolder />
+              <AddFolder onSuccessCallback={close} />
             ) : (
               <AddBookmark />
             )}

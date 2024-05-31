@@ -3,8 +3,15 @@ import {
   getChildrenMock,
   getTreeMock,
   getRecentMock,
+  createMock,
 } from "../mockApi/mockApi";
-import { get, getChildren, getRecent, getTree } from "../chromeApi/chromeApi";
+import {
+  create,
+  get,
+  getChildren,
+  getRecent,
+  getTree,
+} from "../chromeApi/chromeApi";
 import {
   RECENT_BOOKMARKS_FOLDER,
   NUMBER_OF_RECENT_BOOKMARKS,
@@ -18,11 +25,19 @@ export const getBookmarksTree = () => {
 export const getBookmarksAtNodeId = (nodeId) => {
   if (nodeId === RECENT_BOOKMARKS_NODE_ID) return getRecentBookmarks();
 
-  return isDevelopmentEnvironment() ? getChildrenMock(nodeId) : getChildren(nodeId);
+  return isDevelopmentEnvironment()
+    ? getChildrenMock(nodeId)
+    : getChildren(nodeId);
 };
 
 export const getInfoAboutNodeId = (nodeId) => {
   return isDevelopmentEnvironment() ? getMock(nodeId) : get(nodeId);
+};
+
+export const createFolder = (folderName, parentId) => {
+  return isDevelopmentEnvironment()
+    ? createMock(folderName, undefined, parentId)
+    : create(folderName, undefined, parentId);
 };
 
 const getRecentBookmarks = () => {

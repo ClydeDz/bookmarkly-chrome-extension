@@ -33,3 +33,7 @@ export const getMock = (nodeId) => {
 export const getRecentMock = () => {
   return Promise.resolve(GET_RECENT_MOCK_DATA);
 };
+
+export const createMock = (title, url, parentId) => {
+  return Promise.resolve({ title });
+};
