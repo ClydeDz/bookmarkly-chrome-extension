@@ -27,22 +27,22 @@ export const Header = () => {
             radius="md"
             onClick={() => openDrawer(ACTION_TYPE.ADD_FOLDER)}
           >
-            Add folder
+            {ACTION_TYPE.ADD_FOLDER}
           </Button>
           <Button
             variant="white"
             radius="md"
             onClick={() => openDrawer(ACTION_TYPE.ADD_BOOKMARK)}
           >
-            Add bookmark
+            {ACTION_TYPE.ADD_BOOKMARK}
           </Button>
           <Drawer
             opened={opened}
             onClose={close}
             title={
               drawerType === ACTION_TYPE.ADD_FOLDER
-                ? "Add folder"
-                : "Add bookmark"
+                ? ACTION_TYPE.ADD_FOLDER
+                : ACTION_TYPE.ADD_BOOKMARK
             }
             position="right"
             overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
