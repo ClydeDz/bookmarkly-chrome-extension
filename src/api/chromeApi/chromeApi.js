@@ -24,5 +24,6 @@ export const getRecent = (numberOfItems) => {
 };
 
 export const create = (title, url, parentId) => {
+  console.log(title, url, parentId);
   return chrome.bookmarks.create({ title, url, parentId });
 };

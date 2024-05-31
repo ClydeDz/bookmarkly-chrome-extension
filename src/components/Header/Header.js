@@ -50,7 +50,7 @@ export const Header = () => {
             {drawerType === ACTION_TYPE.ADD_FOLDER ? (
               <AddFolder onSuccessCallback={close} />
             ) : (
-              <AddBookmark />
+              <AddBookmark onSuccessCallback={close} />
             )}
           </Drawer>
         </div>

@@ -40,6 +40,12 @@ export const createFolder = (folderName, parentId) => {
     : create(folderName, undefined, parentId);
 };
 
+export const createBookmark = (bookmarkTitle, url, parentId) => {
+  return isDevelopmentEnvironment()
+    ? createMock(bookmarkTitle, url, parentId)
+    : create(bookmarkTitle, url, parentId);
+};
+
 const getRecentBookmarks = () => {
   return isDevelopmentEnvironment()
     ? getRecentMock()

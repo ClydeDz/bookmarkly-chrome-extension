@@ -35,5 +35,5 @@ export const getRecentMock = () => {
 };
 
 export const createMock = (title, url, parentId) => {
-  return Promise.resolve({ title });
+  return Promise.resolve({ title, url, parentId });
 };
