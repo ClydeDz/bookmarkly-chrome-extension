@@ -12,9 +12,11 @@ import {
 } from "@mantine/core";
 import { truncateString } from "../../utils/string";
 import { IconEdit, IconTrash, IconFolder } from "@tabler/icons-react";
-import { setCurrentNodeId } from "../../state/redux/navigationSlice";
+import { setCurrentNodeId, setItemId } from "../../state/redux/navigationSlice";
 import "./bookmarks.css";
 import { NoBookmarks } from "../NoBookmarks/NoBookmarks";
+import { ACTION_TYPE } from "../../const/app";
+import { setDrawerType } from "../../state/redux/drawerSlice";
 
 export const Bookmarks = () => {
   const nodeId = useSelector((state) => state.navigation.currentNodeId);
@@ -35,6 +37,15 @@ export const Bookmarks = () => {
     dispatch(setCurrentNodeId(item.id));
   };
 
+  const onEditClick = (item) => {
+    dispatch(setItemId(item.id));
+    if (item.url) {
+      dispatch(setDrawerType(ACTION_TYPE.ADD_BOOKMARK));
+    } else {
+      dispatch(setDrawerType(ACTION_TYPE.ADD_FOLDER));
+    }
+  };
+
   return (
     <Flex
       mih={20}
@@ -53,7 +64,7 @@ export const Bookmarks = () => {
               p="sm"
               w={"100%"}
               key={`${item.title}${Math.random()}`}
-              onClick={() => onCardClick(item)}
+              // onClick={() => onCardClick(item)}
               className="bookmark-card"
             >
               <Group justify="space-between">
@@ -75,6 +86,7 @@ export const Bookmarks = () => {
                   <Button
                     variant="outline"
                     leftSection={<IconEdit size={14} />}
+                    onClick={() => onEditClick(item)}
                   >
                     Edit
                   </Button>

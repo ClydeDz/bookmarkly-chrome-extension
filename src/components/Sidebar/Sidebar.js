@@ -8,20 +8,12 @@ import { ACTION_TYPE } from "../../const/app";
 
 export const Sidebar = () => {
   const drawerType = useSelector((state) => state.drawer.drawerType);
+  const { itemId } = useSelector((state) => state.navigation);
   const [opened, { open, close }] = useDisclosure(false);
 
   useEffect(() => {
     drawerType && open();
   }, [drawerType]);
-
-  const renderInsideComponent = () => {
-    if (drawerType === ACTION_TYPE.ADD_FOLDER) {
-      return <AddFolder onSuccessCallback={close} />;
-    }
-    if (drawerType === ACTION_TYPE.ADD_BOOKMARK) {
-      return <AddBookmark onSuccessCallback={close} />;
-    }
-  };
 
   return (
     <Drawer
@@ -29,13 +21,22 @@ export const Sidebar = () => {
       onClose={close}
       title={
         drawerType === ACTION_TYPE.ADD_FOLDER
-          ? ACTION_TYPE.ADD_FOLDER
+          ? itemId
+            ? ACTION_TYPE.EDIT_FOLDER
+            : ACTION_TYPE.ADD_FOLDER
+          : itemId
+          ? ACTION_TYPE.EDIT_BOOKMARK
           : ACTION_TYPE.ADD_BOOKMARK
       }
       position="right"
       overlayProps={{ backgroundOpacity: 0.5, blur: 4 }}
     >
-      {renderInsideComponent()}
+      {drawerType === ACTION_TYPE.ADD_FOLDER && (
+        <AddFolder onSuccessCallback={close} />
+      )}
+      {drawerType === ACTION_TYPE.ADD_BOOKMARK && (
+        <AddBookmark onSuccessCallback={close} />
+      )}
     </Drawer>
   );
 };

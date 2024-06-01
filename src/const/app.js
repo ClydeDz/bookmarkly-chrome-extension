@@ -11,6 +11,8 @@ export const NUMBER_OF_RECENT_BOOKMARKS = 5;
 export const ACTION_TYPE = {
   ADD_FOLDER: "Add a folder",
   ADD_BOOKMARK: "Add a bookmark",
+  EDIT_FOLDER: "Edit a folder",
+  EDIT_BOOKMARK: "Edit a bookmark",
 };
 
 export const RECENT_BOOKMARKS_NODE_INFO = [

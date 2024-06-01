@@ -1,12 +1,20 @@
 import { useForm } from "@mantine/form";
 import { TextInput, Button } from "@mantine/core";
-import { useSelector } from "react-redux";
-import { createBookmark } from "../../api/bookmarksApi/bookmarksApi";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createBookmark,
+  getInfoAboutNodeId,
+  updateBookmark,
+} from "../../api/bookmarksApi/bookmarksApi";
 import { isValidURL } from "../../utils/url";
+import { setItemId } from "../../state/redux/navigationSlice";
+import { useEffect } from "react";
 
 export const AddBookmark = (props) => {
   const { onSuccessCallback } = props;
-  const nodeId = useSelector((state) => state.navigation.currentNodeId);
+  const { currentNodeId, itemId } = useSelector((state) => state.navigation);
+  const dispatch = useDispatch();
+
   const form = useForm({
     mode: "uncontrolled",
     initialValues: { bookmarkTitle: "", url: "" },
@@ -19,7 +27,7 @@ export const AddBookmark = (props) => {
   });
 
   const addBookmark = async (data) => {
-    await createBookmark(data.bookmarkTitle, data.url, nodeId)
+    await createBookmark(data.bookmarkTitle, data.url, currentNodeId)
       .then((results) => {
         if (results.title === data.bookmarkTitle) onSuccessCallback();
       })
@@ -28,8 +36,35 @@ export const AddBookmark = (props) => {
       });
   };
 
+  const editBookmark = async (data) => {
+    await updateBookmark(itemId, data.bookmarkTitle, data.url)
+      .then((results) => {
+        if (results.title === data.bookmarkTitle) {
+          dispatch(setItemId(undefined));
+          onSuccessCallback();
+        }
+      })
+      .catch((error) => {
+        if (error) onSuccessCallback();
+      });
+  };
+
+  const initializeValues = async () => {
+    const itemDetails = await getInfoAboutNodeId(itemId);
+    if (!itemDetails) return;
+
+    form.setValues({
+      bookmarkTitle: itemDetails[0].title,
+      url: itemDetails[0].url,
+    });
+  };
+
+  useEffect(() => {
+    itemId && initializeValues();
+  }, [itemId]);
+
   return (
-    <form onSubmit={form.onSubmit(addBookmark)}>
+    <form onSubmit={form.onSubmit(itemId ? editBookmark : addBookmark)}>
       <TextInput
         label="Bookmark title"
         key={form.key("bookmarkTitle")}
@@ -41,7 +76,7 @@ export const AddBookmark = (props) => {
         {...form.getInputProps("url")}
       />
       <Button type="submit" mt="sm">
-        Create
+        {itemId ? "Edit bookmark" : "Add bookmark"}
       </Button>
     </form>
   );

@@ -29,6 +29,16 @@ export const GET_BY_ID_MOCK_DATA = {
       title: "Maps",
     },
   ],
+  9: [
+    {
+      dateAdded: 1716276187106,
+      id: "9",
+      index: 0,
+      parentId: "7",
+      title: "Stackoverflow",
+      url: "https://www.stackoverflow.com/",
+    },
+  ],
   10: [
     {
       dateAdded: 1716600516482,

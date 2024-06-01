@@ -3,6 +3,7 @@ import { RECENT_BOOKMARKS_NODE_ID } from "../../const/app";
 
 const initialState = {
   currentNodeId: RECENT_BOOKMARKS_NODE_ID,
+  itemId: undefined,
 };
 
 export const navigationSlice = createSlice({
@@ -12,9 +13,12 @@ export const navigationSlice = createSlice({
     setCurrentNodeId: (state, action) => {
       state.currentNodeId = action.payload;
     },
+    setItemId: (state, action) => {
+      state.itemId = action.payload;
+    },
   },
 });
 
-export const { setCurrentNodeId } = navigationSlice.actions;
+export const { setCurrentNodeId, setItemId } = navigationSlice.actions;
 
 export default navigationSlice.reducer;
