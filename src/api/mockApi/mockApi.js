@@ -42,3 +42,6 @@ export const updateMock = (id, title, url) => {
   return Promise.resolve({ id, title, url });
 };
 
+export const searchMock = (searchTerm) => {
+  return Promise.resolve(GET_CHILDREN_MOCK_DATA);
+};

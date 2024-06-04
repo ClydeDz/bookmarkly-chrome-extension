@@ -5,6 +5,7 @@ import {
   getRecentMock,
   createMock,
   updateMock,
+  searchMock,
 } from "../mockApi/mockApi";
 import {
   create,
@@ -63,6 +64,10 @@ const getRecentBookmarks = () => {
   return isDevelopmentEnvironment()
     ? getRecentMock()
     : getRecent(NUMBER_OF_RECENT_BOOKMARKS);
+};
+
+export const searchBookmarks = (searchTerm) => {
+  return searchMock(searchTerm);
 };
 
 const isDevelopmentEnvironment = () => {
