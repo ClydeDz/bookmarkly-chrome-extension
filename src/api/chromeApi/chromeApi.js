@@ -30,3 +30,7 @@ export const create = (title, url, parentId) => {
 export const update = (id, title, url) => {
   return chrome.bookmarks.update(id, { title, url });
 };
+
+export const search = (searchTerm) => {
+  return chrome.bookmarks.search(searchTerm);
+};

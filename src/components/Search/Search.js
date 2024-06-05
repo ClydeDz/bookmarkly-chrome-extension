@@ -4,24 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { searchBookmarks } from "../../api/bookmarksApi/bookmarksApi";
 import { AppContext } from "../../state/context/AppContext";
 import { truncateString } from "../../utils/string";
-
-const find = async (searchTerm) => {
-  const results = await searchBookmarks(searchTerm);
-
-  if (!results || results.length === 0) return [];
-
-  const ids = results.map((item) => {
-    return item.id;
-  });
-
-  const kv = {};
-  results.map((item) => {
-    return (kv[item.id] = item);
-  });
-
-  console.log(kv);
-  return kv;
-};
+import { IconFolder } from "@tabler/icons-react";
 
 const convertObjectToKeyValuePair = (bookmarkData) => {
   const kv = {};
@@ -32,6 +15,7 @@ const convertObjectToKeyValuePair = (bookmarkData) => {
         item.children &&
         item.children.length &&
         constructKeyValuePair(item.children);
+
       return (kv[item.title] = item);
     });
   };
@@ -41,21 +25,27 @@ const convertObjectToKeyValuePair = (bookmarkData) => {
   return kv;
 };
 
-// https://mantine.dev/core/autocomplete/#renderoption
-
 export const Search = () => {
   const bookmarks = useContext(AppContext);
   const [fullData, setFullData] = useState([]);
   const [onlyKeys, setOnlyKeys] = useState([]);
   const [searchValue, setSearchValue] = useState("");
-  // const [searchResults, setSearchResults] = useState([]);
 
   const setAutocompleteData = (_bookmarkData) => {
     const r = convertObjectToKeyValuePair(_bookmarkData);
     setFullData(r);
-    const ids = Object.keys(r);
-    setOnlyKeys(ids);
-    console.log("******", onlyKeys, fullData);
+
+    const bookmarksGroupObject = { group: "Bookmarks", items: [] };
+    const foldersGroupObject = { group: "Folders", items: [] };
+    Object.entries(r).map((rItem) => {
+      if (rItem[1].url) {
+        bookmarksGroupObject.items.push(rItem[0]);
+      } else {
+        foldersGroupObject.items.push(rItem[0]);
+      }
+    });
+
+    setOnlyKeys([{ ...bookmarksGroupObject }, { ...foldersGroupObject }]);
   };
 
   const fetchDataFromBackend = async () => {
@@ -83,12 +73,16 @@ export const Search = () => {
         key={option.title}
         onClick={() => console.log("tada", option)}
       >
-        {optionItem.url && (
+        {optionItem.url ? (
           <Avatar
             src={`https://www.google.com/s2/favicons?domain=${optionItem.url}&sz=128`}
             size={36}
             radius="xl"
           />
+        ) : (
+          <Avatar size={36} radius="xl">
+            <IconFolder />
+          </Avatar>
         )}
         <div>
           <Text size="sm">{truncateString(optionItem.title, 26)}</Text>

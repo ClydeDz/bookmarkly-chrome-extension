@@ -13,6 +13,7 @@ import {
   getChildren,
   getRecent,
   getTree,
+  search,
   update,
 } from "../chromeApi/chromeApi";
 import {
@@ -67,7 +68,9 @@ const getRecentBookmarks = () => {
 };
 
 export const searchBookmarks = (searchTerm) => {
-  return searchMock(searchTerm);
+  return isDevelopmentEnvironment()
+    ? searchMock(searchTerm)
+    : search(searchTerm);
 };
 
 const isDevelopmentEnvironment = () => {
