@@ -6,6 +6,7 @@ import {
   createMock,
   updateMock,
   searchMock,
+  removeMock,
 } from "../mockApi/mockApi";
 import {
   create,
@@ -13,6 +14,7 @@ import {
   getChildren,
   getRecent,
   getTree,
+  remove,
   search,
   update,
 } from "../chromeApi/chromeApi";
@@ -71,6 +73,10 @@ export const searchBookmarks = (searchTerm) => {
   return isDevelopmentEnvironment()
     ? searchMock(searchTerm)
     : search(searchTerm);
+};
+
+export const removeBookmarkOrFolder = (id) => {
+  return isDevelopmentEnvironment() ? removeMock(id) : remove(id);
 };
 
 const isDevelopmentEnvironment = () => {

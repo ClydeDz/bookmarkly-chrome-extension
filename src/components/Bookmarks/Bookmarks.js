@@ -1,15 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getBookmarksAtNodeId } from "../../api/bookmarksApi/bookmarksApi";
-import { useEffect, useState } from "react";
 import {
-  Text,
-  Avatar,
-  Button,
-  Group,
-  Flex,
-  Paper,
-  Anchor,
-} from "@mantine/core";
+  getBookmarksAtNodeId,
+  removeBookmarkOrFolder,
+} from "../../api/bookmarksApi/bookmarksApi";
+import { useEffect, useState } from "react";
+import { Text, Avatar, Button, Group, Flex, Paper } from "@mantine/core";
 import { truncateString } from "../../utils/string";
 import { IconEdit, IconTrash, IconFolder } from "@tabler/icons-react";
 import { setCurrentNodeId, setItemId } from "../../state/redux/navigationSlice";
@@ -46,65 +41,81 @@ export const Bookmarks = () => {
     }
   };
 
+  const onDeleteClick = async (item) => {
+    await removeBookmarkOrFolder(item.id);
+  };
+
   return (
-    <Flex
-      mih={20}
-      gap="md"
-      justify="flex-start"
-      align="flex-start"
-      direction="row"
-      wrap={"wrap"}
-    >
-      {bookmarks.length < 1 && <NoBookmarks />}
-      {bookmarks.length > 0 &&
-        bookmarks.map((item) => {
-          return (
-            <Paper
-              shadow="xs"
-              p="sm"
-              w={"100%"}
-              key={`${item.title}${Math.random()}`}
-              // onClick={() => onCardClick(item)}
-              className="bookmark-card"
-            >
-              <Group justify="space-between">
-                <Group justify="flex-start">
-                  {item.url ? (
-                    <Avatar
-                      src={`https://www.google.com/s2/favicons?domain=${item.url}&sz=128`}
-                      alt="it's me"
-                      size={"sm"}
-                    />
-                  ) : (
-                    <Avatar color="blue" bg={"white"} size={"sm"}>
-                      <IconFolder size={16} />
-                    </Avatar>
-                  )}
-                  <Text>{truncateString(item.title, 60)}</Text>
-                </Group>
-                <Group justify="flex-end">
-                  <Button
-                    variant="outline"
-                    leftSection={<IconEdit size={14} />}
-                    onClick={() => onEditClick(item)}
+    <>
+      <Flex
+        mih={20}
+        gap="md"
+        justify="flex-start"
+        align="flex-start"
+        direction="row"
+        wrap={"wrap"}
+      >
+        {bookmarks.length < 1 && <NoBookmarks />}
+        {bookmarks.length > 0 &&
+          bookmarks.map((item) => {
+            return (
+              <Paper
+                shadow="xs"
+                p="sm"
+                w={"100%"}
+                key={`${item.title}${Math.random()}`}
+              >
+                <Group justify="space-between">
+                  <Group
+                    justify="flex-start"
+                    onClick={() => onCardClick(item)}
+                    className="bookmark-card"
                   >
-                    Edit
-                  </Button>
-                  <Button variant="light" leftSection={<IconTrash size={14} />}>
-                    Delete
-                  </Button>
+                    {item.url ? (
+                      <Avatar
+                        src={`https://www.google.com/s2/favicons?domain=${item.url}&sz=128`}
+                        alt="it's me"
+                        size={"sm"}
+                      />
+                    ) : (
+                      <Avatar color="blue" bg={"white"} size={"sm"}>
+                        <IconFolder size={16} />
+                      </Avatar>
+                    )}
+                    <Text>{truncateString(item.title, 60)}</Text>
+                  </Group>
+                  <Group justify="flex-end">
+                    <Button
+                      variant="outline"
+                      leftSection={<IconEdit size={14} />}
+                      onClick={() => onEditClick(item)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant="light"
+                      leftSection={<IconTrash size={14} />}
+                      onClick={() => onDeleteClick(item)}
+                    >
+                      Delete
+                    </Button>
+                  </Group>
                 </Group>
-              </Group>
-              {item.url && (
-                <Group justify="flex-start" preventGrowOverflow={true} pl={45}>
-                  <Text size="sm" opacity={0.7}>
-                    {truncateString(item.url, 50)}
-                  </Text>
-                </Group>
-              )}
-            </Paper>
-          );
-        })}
-    </Flex>
+                {item.url && (
+                  <Group
+                    justify="flex-start"
+                    preventGrowOverflow={true}
+                    pl={45}
+                  >
+                    <Text size="sm" opacity={0.7}>
+                      {truncateString(item.url, 50)}
+                    </Text>
+                  </Group>
+                )}
+              </Paper>
+            );
+          })}
+      </Flex>
+    </>
   );
 };

@@ -91,10 +91,7 @@ export const Search = () => {
           </Avatar>
         )}
         <div>
-          <Text size="sm">
-            {truncateString(optionItem.title, 26)}{" "}
-            {truncateString(optionItem.id, 26)}
-          </Text>
+          <Text size="sm">{truncateString(optionItem.title, 26)} </Text>
           {optionItem.url && (
             <Text size="xs" opacity={0.5}>
               {truncateString(optionItem.url, 26)}{" "}

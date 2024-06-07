@@ -34,3 +34,7 @@ export const update = (id, title, url) => {
 export const search = (searchTerm) => {
   return chrome.bookmarks.search(searchTerm);
 };
+
+export const remove = (id) => {
+  return chrome.bookmarks.remove(id);
+};
