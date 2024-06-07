@@ -97,9 +97,9 @@ export const Bookmarks = () => {
               </Group>
               {item.url && (
                 <Group justify="flex-start" preventGrowOverflow={true} pl={45}>
-                  <Anchor href={item.url}>
+                  <Text size="sm" opacity={0.7}>
                     {truncateString(item.url, 50)}
-                  </Anchor>
+                  </Text>
                 </Group>
               )}
             </Paper>
