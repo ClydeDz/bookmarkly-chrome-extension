@@ -10,13 +10,15 @@ import { IconEdit, IconTrash, IconFolder } from "@tabler/icons-react";
 import { setCurrentNodeId, setItemId } from "../../state/redux/navigationSlice";
 import "./bookmarks.css";
 import { NoBookmarks } from "../NoBookmarks/NoBookmarks";
-import { ACTION_TYPE } from "../../const/app";
+import { ACTION_TYPE, TOAST_TYPE } from "../../const/app";
 import { setDrawerType } from "../../state/redux/drawerSlice";
+import { useToast } from "../../utils/useToast";
 
 export const Bookmarks = () => {
   const nodeId = useSelector((state) => state.navigation.currentNodeId);
   const [bookmarks, setBookmarks] = useState([]);
   const dispatch = useDispatch();
+  const { showToast } = useToast();
 
   const loadBookmarkData = async () => {
     setBookmarks(await getBookmarksAtNodeId(nodeId));
@@ -42,7 +44,23 @@ export const Bookmarks = () => {
   };
 
   const onDeleteClick = async (item) => {
-    await removeBookmarkOrFolder(item.id);
+    await removeBookmarkOrFolder(item.id)
+      .then((value) => {
+        console.log(value);
+        showToast({
+          title: "Deleted successfully",
+          message: "There was a problem deleting this item",
+          type: TOAST_TYPE.SUCCESS,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        showToast({
+          title: "Oops",
+          message: "There was a problem deleting this item",
+          type: TOAST_TYPE.FAILURE,
+        });
+      });
   };
 
   return (

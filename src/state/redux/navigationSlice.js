@@ -4,6 +4,7 @@ import { RECENT_BOOKMARKS_NODE_ID } from "../../const/app";
 const initialState = {
   currentNodeId: RECENT_BOOKMARKS_NODE_ID,
   itemId: undefined,
+  
 };
 
 export const navigationSlice = createSlice({

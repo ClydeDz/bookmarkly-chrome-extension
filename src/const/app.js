@@ -25,3 +25,9 @@ export const RECENT_BOOKMARKS_NODE_INFO = [
     title: RECENT_BOOKMARKS_FOLDER,
   },
 ];
+
+export const TOAST_TYPE = {
+  SUCCESS: "SUCCESS",
+  FAILURE: "FAILURE",
+  NEUTRAL: "NEUTRAL",
+};

@@ -6,6 +6,7 @@ import { getBookmarksTree } from "./api/bookmarksApi/bookmarksApi";
 import { Provider } from "react-redux";
 import { store } from "./state/redux/store";
 import { Header } from "./components/Header/Header";
+import { ToastProvider } from "./state/context/ToastContext";
 
 function App() {
   const [bookmarks, setBookmarks] = useState(null);
@@ -24,8 +25,10 @@ function App() {
   return (
     <Provider store={store}>
       <AppContext.Provider value={bookmarks}>
-        <Header />
-        <PopulatedPage />
+        <ToastProvider>
+          <Header />
+          <PopulatedPage />
+        </ToastProvider>
       </AppContext.Provider>
     </Provider>
   );
