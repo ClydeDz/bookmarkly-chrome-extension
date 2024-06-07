@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { setDrawerType } from "../../state/redux/drawerSlice";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { Search } from "../Search/Search";
-import { Demo } from "../Search/Demo";
+import { IconFolder, IconFolderPlus, IconFilePlus } from "@tabler/icons-react";
 
 export const Header = () => {
   const dispatch = useDispatch();
@@ -22,6 +22,7 @@ export const Header = () => {
             variant="light"
             c={"white"}
             radius="md"
+            leftSection={<IconFolderPlus />}
             onClick={() => dispatch(setDrawerType(ACTION_TYPE.ADD_FOLDER))}
           >
             {ACTION_TYPE.ADD_FOLDER}
@@ -29,6 +30,7 @@ export const Header = () => {
           <Button
             variant="white"
             radius="md"
+            leftSection={<IconFilePlus />}
             onClick={() => dispatch(setDrawerType(ACTION_TYPE.ADD_BOOKMARK))}
           >
             {ACTION_TYPE.ADD_BOOKMARK}
