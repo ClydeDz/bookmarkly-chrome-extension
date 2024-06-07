@@ -5,6 +5,8 @@ import { searchBookmarks } from "../../api/bookmarksApi/bookmarksApi";
 import { AppContext } from "../../state/context/AppContext";
 import { truncateString } from "../../utils/string";
 import { IconFolder } from "@tabler/icons-react";
+import { useDispatch } from "react-redux";
+import { setCurrentNodeId } from "../../state/redux/navigationSlice";
 
 const convertObjectToKeyValuePair = (bookmarkData) => {
   const kv = {};
@@ -30,6 +32,7 @@ export const Search = () => {
   const [fullData, setFullData] = useState([]);
   const [onlyKeys, setOnlyKeys] = useState([]);
   const [searchValue, setSearchValue] = useState("");
+  const dispatch = useDispatch();
 
   const setAutocompleteData = (_bookmarkData) => {
     const r = convertObjectToKeyValuePair(_bookmarkData);
@@ -65,14 +68,17 @@ export const Search = () => {
     !searchValue && bookmarks && setAutocompleteData(bookmarks[0].children);
   }, [searchValue]);
 
+  const onOptionSubmit = (item) => {
+    const optionItem = fullData[item];
+    optionItem.url
+      ? window.open(optionItem.url, "_blank")?.focus()
+      : dispatch(setCurrentNodeId(optionItem.id));
+  };
+
   const renderAutocompleteOption = ({ option }) => {
     const optionItem = fullData[option.value];
     return (
-      <Group
-        gap="sm"
-        key={option.title}
-        onClick={() => console.log("tada", option)}
-      >
+      <Group gap="sm" key={option.title}>
         {optionItem.url ? (
           <Avatar
             src={`https://www.google.com/s2/favicons?domain=${optionItem.url}&sz=128`}
@@ -85,10 +91,13 @@ export const Search = () => {
           </Avatar>
         )}
         <div>
-          <Text size="sm">{truncateString(optionItem.title, 26)}</Text>
+          <Text size="sm">
+            {truncateString(optionItem.title, 26)}{" "}
+            {truncateString(optionItem.id, 26)}
+          </Text>
           {optionItem.url && (
             <Text size="xs" opacity={0.5}>
-              {truncateString(optionItem.url, 26)}
+              {truncateString(optionItem.url, 26)}{" "}
             </Text>
           )}
         </div>
@@ -101,7 +110,7 @@ export const Search = () => {
       data={onlyKeys}
       renderOption={renderAutocompleteOption}
       maxDropdownHeight={300}
-      onOptionSubmit={console.log}
+      onOptionSubmit={onOptionSubmit}
       size="md"
       w={450}
       maw={900}
