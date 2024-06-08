@@ -38,3 +38,27 @@ export const search = (searchTerm) => {
 export const remove = (id) => {
   return chrome.bookmarks.remove(id);
 };
+
+export const onCreated = (callback) => {
+  chrome.bookmarks.onCreated.addListener(callback);
+};
+
+export const onRemoved = (callback) => {
+  chrome.bookmarks.onRemoved.addListener(callback);
+};
+
+export const onMoved = (callback) => {
+  chrome.bookmarks.onMoved.addListener(callback);
+};
+
+export const onImportEnded = (callback) => {
+  chrome.bookmarks.onImportEnded.addListener(callback);
+};
+
+export const onChanged = (callback) => {
+  chrome.bookmarks.onChanged.addListener(callback);
+};
+
+export const onChildrenReordered = (callback) => {
+  chrome.bookmarks.onChildrenReordered.addListener(callback);
+};

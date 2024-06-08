@@ -1,9 +1,10 @@
 import { Breadcrumbs, Anchor, Stack } from "@mantine/core";
 import { useDispatch, useSelector } from "react-redux";
 import { getInfoAboutNodeId } from "../../api/bookmarksApi/bookmarksApi";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { setCurrentNodeId } from "../../state/redux/navigationSlice";
 import { RECENT_BOOKMARKS_NODE_ID } from "../../const/app";
+import { AppContext } from "../../state/context/AppContext";
 
 export const BreadcrumbNav = () => {
   const dispatch = useDispatch();
@@ -11,6 +12,7 @@ export const BreadcrumbNav = () => {
   const currentBookmarkNodeId = useSelector(
     (state) => state.navigation.currentNodeId
   );
+  const bookmarksFromProvider = useContext(AppContext);
 
   const createLinkTree = async (nodeId) => {
     if (!nodeId) return;
@@ -31,7 +33,7 @@ export const BreadcrumbNav = () => {
   useEffect(() => {
     setLinkTree([]);
     createLinkTree(currentBookmarkNodeId);
-  }, [currentBookmarkNodeId]);
+  }, [currentBookmarkNodeId, bookmarksFromProvider]);
 
   const onMenuItemClick = (nodeId) => {
     dispatch(setCurrentNodeId(nodeId));

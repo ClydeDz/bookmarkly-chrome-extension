@@ -49,3 +49,27 @@ export const searchMock = (searchTerm) => {
 export const removeMock = (id) => {
   return Promise.resolve();
 };
+
+export const onCreatedMock = (callback) => {
+  callback();
+};
+
+export const onRemovedMock = (callback) => {
+  callback();
+};
+
+export const onMovedMock = (callback) => {
+  callback();
+};
+
+export const onImportEndedMock = (callback) => {
+  callback();
+};
+
+export const onChangedMock = (callback) => {
+  callback();
+};
+
+export const onChildrenReorderedMock = (callback) => {
+  callback();
+};

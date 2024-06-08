@@ -3,7 +3,7 @@ import {
   getBookmarksAtNodeId,
   removeBookmarkOrFolder,
 } from "../../api/bookmarksApi/bookmarksApi";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Text, Avatar, Button, Group, Flex, Paper } from "@mantine/core";
 import { truncateString } from "../../utils/string";
 import { IconEdit, IconTrash, IconFolder } from "@tabler/icons-react";
@@ -13,8 +13,10 @@ import { NoBookmarks } from "../NoBookmarks/NoBookmarks";
 import { ACTION_TYPE, TOAST_TYPE } from "../../const/app";
 import { setDrawerType } from "../../state/redux/drawerSlice";
 import { useToast } from "../../utils/useToast";
+import { AppContext } from "../../state/context/AppContext";
 
 export const Bookmarks = () => {
+  const bookmarksFromProvider = useContext(AppContext);
   const nodeId = useSelector((state) => state.navigation.currentNodeId);
   const [bookmarks, setBookmarks] = useState([]);
   const dispatch = useDispatch();
@@ -27,6 +29,10 @@ export const Bookmarks = () => {
   useEffect(() => {
     loadBookmarkData();
   }, [nodeId]);
+
+  useEffect(() => {
+    loadBookmarkData();
+  }, [bookmarksFromProvider]);
 
   const onCardClick = (item) => {
     item.url && window.open(item.url, "_blank")?.focus();

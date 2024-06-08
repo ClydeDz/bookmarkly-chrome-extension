@@ -7,6 +7,12 @@ import {
   updateMock,
   searchMock,
   removeMock,
+  onCreatedMock,
+  onImportEndedMock,
+  onMovedMock,
+  onRemovedMock,
+  onChangedMock,
+  onChildrenReorderedMock,
 } from "../mockApi/mockApi";
 import {
   create,
@@ -14,6 +20,12 @@ import {
   getChildren,
   getRecent,
   getTree,
+  onChanged,
+  onChildrenReordered,
+  onCreated,
+  onImportEnded,
+  onMoved,
+  onRemoved,
   remove,
   search,
   update,
@@ -77,6 +89,40 @@ export const searchBookmarks = (searchTerm) => {
 
 export const removeBookmarkOrFolder = (id) => {
   return isDevelopmentEnvironment() ? removeMock(id) : remove(id);
+};
+
+export const onBookmarkOrFolderCreated = (callback) => {
+  return isDevelopmentEnvironment()
+    ? onCreatedMock(callback)
+    : onCreated(callback);
+};
+
+export const onImportSessionEnded = (callback) => {
+  return isDevelopmentEnvironment()
+    ? onImportEndedMock(callback)
+    : onImportEnded(callback);
+};
+
+export const onBookmarkOrFolderMoved = (callback) => {
+  return isDevelopmentEnvironment() ? onMovedMock(callback) : onMoved(callback);
+};
+
+export const onBookmarkOrFolderRemoved = (callback) => {
+  return isDevelopmentEnvironment()
+    ? onRemovedMock(callback)
+    : onRemoved(callback);
+};
+
+export const onBookmarkOrFolderChanged = (callback) => {
+  return isDevelopmentEnvironment()
+    ? onChangedMock(callback)
+    : onChanged(callback);
+};
+
+export const onBookmarkOrFolderReordered = (callback) => {
+  return isDevelopmentEnvironment()
+    ? onChildrenReorderedMock(callback)
+    : onChildrenReordered(callback);
 };
 
 const isDevelopmentEnvironment = () => {
