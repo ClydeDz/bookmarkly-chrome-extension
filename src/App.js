@@ -1,7 +1,7 @@
 import "./App.css";
 import { useEffect, useState } from "react";
 import { PopulatedPage } from "./pages/PopulatedPage/PopulatedPage";
-import { AppContext } from "./state/context/AppContext";
+import { AppContext } from "./context/AppContext";
 import {
   getBookmarksTree,
   onBookmarkOrFolderChanged,
@@ -14,7 +14,7 @@ import {
 import { Provider } from "react-redux";
 import { store } from "./state/redux/store";
 import { Header } from "./components/Header/Header";
-import { ToastProvider } from "./state/context/ToastContext";
+import { ToastProvider } from "./provider/ToastProvider";
 
 function App() {
   const [bookmarks, setBookmarks] = useState(null);

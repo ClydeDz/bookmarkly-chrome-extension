@@ -12,8 +12,8 @@ import "./bookmarks.css";
 import { NoBookmarks } from "../NoBookmarks/NoBookmarks";
 import { ACTION_TYPE, TOAST_TYPE } from "../../const/app";
 import { setDrawerType } from "../../state/redux/drawerSlice";
-import { useToast } from "../../utils/useToast";
-import { AppContext } from "../../state/context/AppContext";
+import { useToast } from "../../hooks/useToast";
+import { AppContext } from "../../context/AppContext";
 
 export const Bookmarks = () => {
   const bookmarksFromProvider = useContext(AppContext);

@@ -4,7 +4,7 @@ import { getInfoAboutNodeId } from "../../api/bookmarksApi/bookmarksApi";
 import { useContext, useEffect, useState } from "react";
 import { setCurrentNodeId } from "../../state/redux/navigationSlice";
 import { RECENT_BOOKMARKS_NODE_ID } from "../../const/app";
-import { AppContext } from "../../state/context/AppContext";
+import { AppContext } from "../../context/AppContext";
 
 export const BreadcrumbNav = () => {
   const dispatch = useDispatch();

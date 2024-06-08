@@ -2,7 +2,7 @@ import { Autocomplete, Avatar, Group, Text } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 import { useContext, useEffect, useState } from "react";
 import { searchBookmarks } from "../../api/bookmarksApi/bookmarksApi";
-import { AppContext } from "../../state/context/AppContext";
+import { AppContext } from "../../context/AppContext";
 import { truncateString } from "../../utils/string";
 import { IconFolder } from "@tabler/icons-react";
 import { useDispatch } from "react-redux";

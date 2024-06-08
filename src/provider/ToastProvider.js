@@ -1,9 +1,7 @@
-import { createContext, useState } from "react";
-
-import { TOAST_TIMEOUT, TOAST_TYPE } from "../../const/app";
-import { Toast } from "../../components/Toast/Toast";
-
-export const ToastContext = createContext(undefined);
+import { useState } from "react";
+import { TOAST_TIMEOUT, TOAST_TYPE } from "../const/app";
+import { ToastContext } from "../context/ToastContext";
+import { Toast } from "../components/Toast/Toast";
 
 export const ToastProvider = ({ children }) => {
   const [toast, setToast] = useState([]);

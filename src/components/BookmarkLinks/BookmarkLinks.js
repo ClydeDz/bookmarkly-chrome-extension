@@ -1,5 +1,5 @@
 import { NavLink } from "@mantine/core";
-import { AppContext } from "../../state/context/AppContext";
+
 import { useContext } from "react";
 import {
   DEFAULT_BOOKMARKS_FOLDER,
@@ -10,6 +10,7 @@ import { truncateString } from "../../utils/string";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentNodeId } from "../../state/redux/navigationSlice";
 import { BookmarkIcons } from "../BookmarkIcons/BookmarkIcons";
+import { AppContext } from "../../context/AppContext";
 
 export const BookmarkLinks = () => {
   const bookmarks = useContext(AppContext);
