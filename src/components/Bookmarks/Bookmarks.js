@@ -13,10 +13,10 @@ import { NoBookmarks } from "../NoBookmarks/NoBookmarks";
 import { ACTION_TYPE, TOAST_TYPE } from "../../const/app";
 import { setDrawerType } from "../../state/redux/drawerSlice";
 import { useToast } from "../../hooks/useToast";
-import { AppContext } from "../../context/AppContext";
+import { BookmarkEventsContext } from "../../context/BookmarkEventsContext";
 
 export const Bookmarks = () => {
-  const bookmarksFromProvider = useContext(AppContext);
+  const bookmarksFromProvider = useContext(BookmarkEventsContext);
   const nodeId = useSelector((state) => state.navigation.currentNodeId);
   const [bookmarks, setBookmarks] = useState([]);
   const dispatch = useDispatch();

@@ -2,11 +2,11 @@ import { Autocomplete, Avatar, Group, Text } from "@mantine/core";
 import { IconSearch } from "@tabler/icons-react";
 import { useContext, useEffect, useState } from "react";
 import { searchBookmarks } from "../../api/bookmarksApi/bookmarksApi";
-import { AppContext } from "../../context/AppContext";
 import { truncateString } from "../../utils/string";
 import { IconFolder } from "@tabler/icons-react";
 import { useDispatch } from "react-redux";
 import { setCurrentNodeId } from "../../state/redux/navigationSlice";
+import { BookmarkEventsContext } from "../../context/BookmarkEventsContext";
 
 const convertObjectToKeyValuePair = (bookmarkData) => {
   const kv = {};
@@ -28,7 +28,7 @@ const convertObjectToKeyValuePair = (bookmarkData) => {
 };
 
 export const Search = () => {
-  const bookmarks = useContext(AppContext);
+  const bookmarks = useContext(BookmarkEventsContext);
   const [fullData, setFullData] = useState([]);
   const [onlyKeys, setOnlyKeys] = useState([]);
   const [searchValue, setSearchValue] = useState("");

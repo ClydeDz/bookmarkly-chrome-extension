@@ -4,7 +4,7 @@ import { getInfoAboutNodeId } from "../../api/bookmarksApi/bookmarksApi";
 import { useContext, useEffect, useState } from "react";
 import { setCurrentNodeId } from "../../state/redux/navigationSlice";
 import { RECENT_BOOKMARKS_NODE_ID } from "../../const/app";
-import { AppContext } from "../../context/AppContext";
+import { BookmarkEventsContext } from "../../context/BookmarkEventsContext";
 
 export const BreadcrumbNav = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ export const BreadcrumbNav = () => {
   const currentBookmarkNodeId = useSelector(
     (state) => state.navigation.currentNodeId
   );
-  const bookmarksFromProvider = useContext(AppContext);
+  const bookmarksFromProvider = useContext(BookmarkEventsContext);
 
   const createLinkTree = async (nodeId) => {
     if (!nodeId) return;

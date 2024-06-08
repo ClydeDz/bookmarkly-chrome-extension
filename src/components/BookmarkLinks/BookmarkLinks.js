@@ -10,10 +10,10 @@ import { truncateString } from "../../utils/string";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentNodeId } from "../../state/redux/navigationSlice";
 import { BookmarkIcons } from "../BookmarkIcons/BookmarkIcons";
-import { AppContext } from "../../context/AppContext";
+import { BookmarkEventsContext } from "../../context/BookmarkEventsContext";
 
 export const BookmarkLinks = () => {
-  const bookmarks = useContext(AppContext);
+  const bookmarks = useContext(BookmarkEventsContext);
   const nodeId = useSelector((state) => state.navigation.currentNodeId);
   const dispatch = useDispatch();
 

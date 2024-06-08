@@ -1,46 +1,20 @@
 import "./App.css";
-import { useEffect, useState } from "react";
 import { PopulatedPage } from "./pages/PopulatedPage/PopulatedPage";
-import { AppContext } from "./context/AppContext";
-import {
-  getBookmarksTree,
-  onBookmarkOrFolderChanged,
-  onBookmarkOrFolderCreated,
-  onBookmarkOrFolderMoved,
-  onBookmarkOrFolderRemoved,
-  onBookmarkOrFolderReordered,
-  onImportSessionEnded,
-} from "./api/bookmarksApi/bookmarksApi";
 import { Provider } from "react-redux";
 import { store } from "./state/redux/store";
 import { Header } from "./components/Header/Header";
 import { ToastProvider } from "./provider/ToastProvider";
+import { BookmarkEventsProvider } from "./provider/BookmarkEventsProvider";
 
 function App() {
-  const [bookmarks, setBookmarks] = useState(null);
-
-  const loadAppData = async () => {
-    setBookmarks(await getBookmarksTree());
-  };
-
-  useEffect(() => {
-    loadAppData();
-    onBookmarkOrFolderCreated(loadAppData);
-    onBookmarkOrFolderRemoved(loadAppData);
-    onBookmarkOrFolderMoved(loadAppData);
-    onImportSessionEnded(loadAppData);
-    onBookmarkOrFolderReordered(loadAppData);
-    onBookmarkOrFolderChanged(loadAppData);
-  }, []);
-
   return (
     <Provider store={store}>
-      <AppContext.Provider value={bookmarks}>
+      <BookmarkEventsProvider>
         <ToastProvider>
           <Header />
           <PopulatedPage />
         </ToastProvider>
-      </AppContext.Provider>
+      </BookmarkEventsProvider>
     </Provider>
   );
 }
