@@ -1,7 +1,13 @@
 .toast {
+  z-index: 99999;
+  margin: 4px 0;
+}
+
+.toast-parent {
+  display: flex;
+  flex-direction: column;
   position: fixed !important;
   bottom: 25px;
-  left: 20px;
   max-width: 30%;
-  z-index: 99999;
+  left: 20px;
 }

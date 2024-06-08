@@ -31,3 +31,5 @@ export const TOAST_TYPE = {
   FAILURE: "FAILURE",
   NEUTRAL: "NEUTRAL",
 };
+
+export const TOAST_TIMEOUT = 3000;

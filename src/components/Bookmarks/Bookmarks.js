@@ -44,96 +44,94 @@ export const Bookmarks = () => {
   };
 
   const onDeleteClick = async (item) => {
+    const isBookmark = item && item.url;
+
     await removeBookmarkOrFolder(item.id)
       .then((value) => {
-        console.log(value);
         showToast({
           title: "Deleted successfully",
-          message: "There was a problem deleting this item",
+          message: `${
+            isBookmark ? "Bookmark" : "Folder"
+          } has been deleted successfully`,
           type: TOAST_TYPE.SUCCESS,
         });
       })
       .catch((error) => {
-        console.log(error);
         showToast({
-          title: "Oops",
-          message: "There was a problem deleting this item",
+          title: "Apologies",
+          message: `There was an issue deleting this ${
+            isBookmark ? "bookmark" : "folder"
+          }`,
           type: TOAST_TYPE.FAILURE,
         });
       });
   };
 
   return (
-    <>
-      <Flex
-        mih={20}
-        gap="md"
-        justify="flex-start"
-        align="flex-start"
-        direction="row"
-        wrap={"wrap"}
-      >
-        {bookmarks.length < 1 && <NoBookmarks />}
-        {bookmarks.length > 0 &&
-          bookmarks.map((item) => {
-            return (
-              <Paper
-                shadow="xs"
-                p="sm"
-                w={"100%"}
-                key={`${item.title}${Math.random()}`}
-              >
-                <Group justify="space-between">
-                  <Group
-                    justify="flex-start"
-                    onClick={() => onCardClick(item)}
-                    className="bookmark-card"
-                  >
-                    {item.url ? (
-                      <Avatar
-                        src={`https://www.google.com/s2/favicons?domain=${item.url}&sz=128`}
-                        alt="it's me"
-                        size={"sm"}
-                      />
-                    ) : (
-                      <Avatar color="blue" bg={"white"} size={"sm"}>
-                        <IconFolder size={16} />
-                      </Avatar>
-                    )}
-                    <Text>{truncateString(item.title, 60)}</Text>
-                  </Group>
-                  <Group justify="flex-end">
-                    <Button
-                      variant="outline"
-                      leftSection={<IconEdit size={14} />}
-                      onClick={() => onEditClick(item)}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      variant="light"
-                      leftSection={<IconTrash size={14} />}
-                      onClick={() => onDeleteClick(item)}
-                    >
-                      Delete
-                    </Button>
-                  </Group>
+    <Flex
+      mih={20}
+      gap="md"
+      justify="flex-start"
+      align="flex-start"
+      direction="row"
+      wrap={"wrap"}
+    >
+      {bookmarks.length < 1 && <NoBookmarks />}
+      {bookmarks.length > 0 &&
+        bookmarks.map((item) => {
+          return (
+            <Paper
+              shadow="xs"
+              p="sm"
+              w={"100%"}
+              key={`${item.title}${Math.random()}`}
+            >
+              <Group justify="space-between">
+                <Group
+                  justify="flex-start"
+                  onClick={() => onCardClick(item)}
+                  className="bookmark-card"
+                >
+                  {item.url ? (
+                    <Avatar
+                      src={`https://www.google.com/s2/favicons?domain=${item.url}&sz=128`}
+                      alt="it's me"
+                      size={"sm"}
+                    />
+                  ) : (
+                    <Avatar color="blue" bg={"white"} size={"sm"}>
+                      <IconFolder size={16} />
+                    </Avatar>
+                  )}
+                  <Text>{truncateString(item.title, 60)}</Text>
                 </Group>
-                {item.url && (
-                  <Group
-                    justify="flex-start"
-                    preventGrowOverflow={true}
-                    pl={45}
+                <Group justify="flex-end">
+                  <Button
+                    variant="outline"
+                    leftSection={<IconEdit size={14} />}
+                    onClick={() => onEditClick(item)}
                   >
-                    <Text size="sm" opacity={0.7}>
-                      {truncateString(item.url, 50)}
-                    </Text>
-                  </Group>
-                )}
-              </Paper>
-            );
-          })}
-      </Flex>
-    </>
+                    Edit
+                  </Button>
+                  <Button
+                    variant="light"
+                    leftSection={<IconTrash size={14} />}
+                    onClick={() => onDeleteClick(item)}
+                  >
+                    Delete
+                  </Button>
+                </Group>
+              </Group>
+              {item.url && (
+                <Group justify="flex-start" preventGrowOverflow={true} pl={45}>
+                  <Text size="sm" opacity={0.7}>
+                    {truncateString(item.url, 50)}
+                  </Text>
+                </Group>
+              )}
+            </Paper>
+          );
+        })}
+    </Flex>
   );
 };

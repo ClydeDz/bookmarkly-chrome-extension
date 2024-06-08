@@ -3,7 +3,7 @@ import { IconX, IconCheck } from "@tabler/icons-react";
 import { TOAST_TYPE } from "../../const/app";
 import "./toast.css";
 
-export const Toast = ({ toast, showToast }) => {
+export const Toast = ({ toast, closeToast }) => {
   const xIcon = <IconX />;
   const checkIcon = <IconCheck />;
   const isSuccess = toast.type === TOAST_TYPE.SUCCESS;
@@ -13,10 +13,10 @@ export const Toast = ({ toast, showToast }) => {
       title={toast.title}
       color={isSuccess ? "green" : "red"}
       icon={isSuccess ? checkIcon : xIcon}
-      onClose={() => showToast(null)}
+      onClose={() => closeToast(toast.id)}
       className="toast"
     >
-      Test {toast.message}
+      {toast.message}
     </Notification>
   );
 };
