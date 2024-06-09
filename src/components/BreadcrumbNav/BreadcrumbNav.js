@@ -12,7 +12,7 @@ export const BreadcrumbNav = () => {
   const currentBookmarkNodeId = useSelector(
     (state) => state.navigation.currentNodeId
   );
-  const bookmarksFromProvider = useContext(BookmarkEventsContext);
+  const bookmarkEventsTriggered = useContext(BookmarkEventsContext);
 
   const createLinkTree = async (nodeId) => {
     if (!nodeId) return;
@@ -33,7 +33,7 @@ export const BreadcrumbNav = () => {
   useEffect(() => {
     setLinkTree([]);
     createLinkTree(currentBookmarkNodeId);
-  }, [currentBookmarkNodeId, bookmarksFromProvider]);
+  }, [currentBookmarkNodeId, bookmarkEventsTriggered]);
 
   const onMenuItemClick = (nodeId) => {
     dispatch(setCurrentNodeId(nodeId));

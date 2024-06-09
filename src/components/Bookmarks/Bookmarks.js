@@ -16,7 +16,7 @@ import { useToast } from "../../hooks/useToast";
 import { BookmarkEventsContext } from "../../context/BookmarkEventsContext";
 
 export const Bookmarks = () => {
-  const bookmarksFromProvider = useContext(BookmarkEventsContext);
+  const bookmarkEventsTriggered = useContext(BookmarkEventsContext);
   const nodeId = useSelector((state) => state.navigation.currentNodeId);
   const [bookmarks, setBookmarks] = useState([]);
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ export const Bookmarks = () => {
 
   useEffect(() => {
     loadBookmarkData();
-  }, [bookmarksFromProvider]);
+  }, [bookmarkEventsTriggered]);
 
   const onCardClick = (item) => {
     item.url && window.open(item.url, "_blank")?.focus();

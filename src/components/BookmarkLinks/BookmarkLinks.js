@@ -1,6 +1,6 @@
 import { NavLink } from "@mantine/core";
 
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   DEFAULT_BOOKMARKS_FOLDER,
   RECENT_BOOKMARKS_FOLDER,
@@ -11,11 +11,21 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCurrentNodeId } from "../../state/redux/navigationSlice";
 import { BookmarkIcons } from "../BookmarkIcons/BookmarkIcons";
 import { BookmarkEventsContext } from "../../context/BookmarkEventsContext";
+import { getBookmarksTree } from "../../api/bookmarksApi/bookmarksApi";
 
 export const BookmarkLinks = () => {
-  const bookmarks = useContext(BookmarkEventsContext);
+  const bookmarkEventsTriggered = useContext(BookmarkEventsContext);
   const nodeId = useSelector((state) => state.navigation.currentNodeId);
   const dispatch = useDispatch();
+  const [bookmarks, setBookmarks] = useState(null);
+
+  const loadBookmarkData = async () => {
+    setBookmarks(await getBookmarksTree());
+  };
+
+  useEffect(() => {
+    loadBookmarkData();
+  }, [bookmarkEventsTriggered]);
 
   const onMenuItemClick = (nodeId) => {
     dispatch(setCurrentNodeId(nodeId));
