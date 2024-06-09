@@ -91,35 +91,35 @@ export const removeBookmarkOrFolder = (id) => {
   return isDevelopmentEnvironment() ? removeMock(id) : remove(id);
 };
 
-export const onBookmarkOrFolderCreated = (callback) => {
+export const registerOnCreated = (callback) => {
   return isDevelopmentEnvironment()
     ? onCreatedMock(callback)
     : onCreated(callback);
 };
 
-export const onImportSessionEnded = (callback) => {
+export const registerOnImportEnded = (callback) => {
   return isDevelopmentEnvironment()
     ? onImportEndedMock(callback)
     : onImportEnded(callback);
 };
 
-export const onBookmarkOrFolderMoved = (callback) => {
+export const registerOnMoved = (callback) => {
   return isDevelopmentEnvironment() ? onMovedMock(callback) : onMoved(callback);
 };
 
-export const onBookmarkOrFolderRemoved = (callback) => {
+export const registerOnRemoved = (callback) => {
   return isDevelopmentEnvironment()
     ? onRemovedMock(callback)
     : onRemoved(callback);
 };
 
-export const onBookmarkOrFolderChanged = (callback) => {
+export const registerOnChanged = (callback) => {
   return isDevelopmentEnvironment()
     ? onChangedMock(callback)
     : onChanged(callback);
 };
 
-export const onBookmarkOrFolderReordered = (callback) => {
+export const registerOnChildrenReordered = (callback) => {
   return isDevelopmentEnvironment()
     ? onChildrenReorderedMock(callback)
     : onChildrenReordered(callback);

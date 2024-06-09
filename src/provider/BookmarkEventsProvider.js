@@ -1,34 +1,32 @@
 import { useEffect, useState } from "react";
 import { BookmarkEventsContext } from "../context/BookmarkEventsContext";
 import {
-  getBookmarksTree,
-  onBookmarkOrFolderChanged,
-  onBookmarkOrFolderCreated,
-  onBookmarkOrFolderMoved,
-  onBookmarkOrFolderRemoved,
-  onBookmarkOrFolderReordered,
-  onImportSessionEnded,
+  registerOnChanged,
+  registerOnCreated,
+  registerOnMoved,
+  registerOnRemoved,
+  registerOnChildrenReordered,
+  registerOnImportEnded,
 } from "../api/bookmarksApi/bookmarksApi";
 
 export const BookmarkEventsProvider = ({ children }) => {
-  const [bookmarks, setBookmarks] = useState(null);
+  const [eventTriggered, setEventTriggered] = useState(false);
 
-  const loadAppData = async () => {
-    setBookmarks(await getBookmarksTree());
+  const triggerEventChanges = async () => {
+    setEventTriggered((prevState) => !prevState);
   };
 
   useEffect(() => {
-    loadAppData();
-    onBookmarkOrFolderCreated(loadAppData);
-    onBookmarkOrFolderRemoved(loadAppData);
-    onBookmarkOrFolderMoved(loadAppData);
-    onImportSessionEnded(loadAppData);
-    onBookmarkOrFolderReordered(loadAppData);
-    onBookmarkOrFolderChanged(loadAppData);
+    registerOnCreated(triggerEventChanges);
+    registerOnRemoved(triggerEventChanges);
+    registerOnMoved(triggerEventChanges);
+    registerOnImportEnded(triggerEventChanges);
+    registerOnChildrenReordered(triggerEventChanges);
+    registerOnChanged(triggerEventChanges);
   }, []);
 
   return (
-    <BookmarkEventsContext.Provider value={bookmarks}>
+    <BookmarkEventsContext.Provider value={eventTriggered}>
       {children}
     </BookmarkEventsContext.Provider>
   );
