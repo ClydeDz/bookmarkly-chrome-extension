@@ -8,7 +8,7 @@ export const getTree = () => {
 };
 
 export const getChildren = (nodeId) => {
-  return chrome.bookmarks.getChildren(nodeId);
+  return chrome.bookmarks.getSubTree(nodeId);
 };
 
 export const get = (nodeId) => {

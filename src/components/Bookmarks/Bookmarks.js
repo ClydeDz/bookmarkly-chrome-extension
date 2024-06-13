@@ -4,7 +4,15 @@ import {
   removeBookmarkOrFolder,
 } from "../../api/bookmarksApi/bookmarksApi";
 import { useContext, useEffect, useState } from "react";
-import { Text, Avatar, Button, Group, Flex, Paper } from "@mantine/core";
+import {
+  Text,
+  Avatar,
+  Button,
+  Group,
+  Flex,
+  Paper,
+  Indicator,
+} from "@mantine/core";
 import { truncateString } from "../../utils/string";
 import { IconEdit, IconTrash, IconFolder } from "@tabler/icons-react";
 import { setCurrentNodeId, setItemId } from "../../state/redux/navigationSlice";
@@ -23,7 +31,14 @@ export const Bookmarks = () => {
   const { showToast } = useToast();
 
   const loadBookmarkData = async () => {
-    setBookmarks(await getBookmarksAtNodeId(nodeId));
+    const rawResults = await getBookmarksAtNodeId(nodeId);
+    const results = rawResults.length > 1 ? rawResults : rawResults[0].children;
+    const sortedResults =
+      results &&
+      results
+        .filter((item) => item.url)
+        .concat(results.filter((item) => !item.url));
+    setBookmarks(sortedResults);
   };
 
   useEffect(() => {
@@ -105,9 +120,17 @@ export const Bookmarks = () => {
                       size={"sm"}
                     />
                   ) : (
-                    <Avatar color="blue" bg={"white"} size={"sm"}>
-                      <IconFolder size={16} />
-                    </Avatar>
+                    <Indicator
+                      inline
+                      processing={item.children?.length > 0}
+                      color="blue"
+                      label={item.children?.length || 0}
+                      size={16}
+                    >
+                      <Avatar color="blue" bg={"white"} size={"sm"}>
+                        <IconFolder size={16} />
+                      </Avatar>
+                    </Indicator>
                   )}
                   <Text>{truncateString(item.title, 60)}</Text>
                 </Group>
