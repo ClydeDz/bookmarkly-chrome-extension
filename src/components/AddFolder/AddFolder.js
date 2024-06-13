@@ -1,18 +1,18 @@
 import { useForm } from "@mantine/form";
 import { TextInput, Button } from "@mantine/core";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
   createFolder,
   getInfoAboutNodeId,
   updateFolder,
 } from "../../api/bookmarksApi/bookmarksApi";
 import { useEffect } from "react";
-import { setItemId } from "../../state/redux/navigationSlice";
+import { ACTION_TYPE } from "../../const/app";
 
 export const AddFolder = (props) => {
-  const { onSuccessCallback } = props;
+  const { onSuccessCallback, onFailureCallback } = props;
   const { currentNodeId, itemId } = useSelector((state) => state.navigation);
-  const dispatch = useDispatch();
+  const drawerType = useSelector((state) => state.drawer.drawerType);
 
   const form = useForm({
     mode: "uncontrolled",
@@ -28,20 +28,17 @@ export const AddFolder = (props) => {
         if (results.title === data.folderName) onSuccessCallback();
       })
       .catch((error) => {
-        if (error) onSuccessCallback();
+        if (error) onFailureCallback();
       });
   };
 
   const editFolder = async (data) => {
     await updateFolder(itemId, data.folderName)
       .then((results) => {
-        if (results.title === data.folderName) {
-          dispatch(setItemId(undefined));
-          onSuccessCallback();
-        }
+        if (results.title === data.folderName) onSuccessCallback();
       })
       .catch((error) => {
-        if (error) onSuccessCallback();
+        if (error) onFailureCallback();
       });
   };
 
@@ -57,14 +54,18 @@ export const AddFolder = (props) => {
   }, [itemId]);
 
   return (
-    <form onSubmit={form.onSubmit(itemId ? editFolder : addFolder)}>
+    <form
+      onSubmit={form.onSubmit(
+        drawerType === ACTION_TYPE.ADD_FOLDER ? addFolder : editFolder
+      )}
+    >
       <TextInput
         label="Folder name"
         key={form.key("folderName")}
         {...form.getInputProps("folderName")}
       />
       <Button type="submit" mt="sm">
-        {itemId ? "Edit folder" : "Add folder"}
+        {drawerType === ACTION_TYPE.ADD_FOLDER ? "Add" : "Update"}
       </Button>
     </form>
   );

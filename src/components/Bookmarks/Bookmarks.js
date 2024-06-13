@@ -43,9 +43,9 @@ export const Bookmarks = () => {
   const onEditClick = (item) => {
     dispatch(setItemId(item.id));
     if (item.url) {
-      dispatch(setDrawerType(ACTION_TYPE.ADD_BOOKMARK));
+      dispatch(setDrawerType(ACTION_TYPE.EDIT_BOOKMARK));
     } else {
-      dispatch(setDrawerType(ACTION_TYPE.ADD_FOLDER));
+      dispatch(setDrawerType(ACTION_TYPE.EDIT_FOLDER));
     }
   };
 
