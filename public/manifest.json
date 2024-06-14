@@ -13,6 +13,7 @@
     "bookmarks": "index.html"
   },
   "permissions": [
-    "bookmarks"
+    "bookmarks",
+    "tabs"
   ]
 }

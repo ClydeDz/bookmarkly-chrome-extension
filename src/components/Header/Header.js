@@ -4,7 +4,8 @@ import { useDispatch } from "react-redux";
 import { setDrawerType } from "../../state/redux/drawerSlice";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { Search } from "../Search/Search";
-import { IconFolder, IconFolderPlus, IconFilePlus } from "@tabler/icons-react";
+import { IconFolderPlus, IconFilePlus } from "@tabler/icons-react";
+import { HeaderMenu } from "../HeaderMenu/HeaderMenu";
 
 export const Header = () => {
   const dispatch = useDispatch();
@@ -16,7 +17,6 @@ export const Header = () => {
           Bookmarkly
         </Title>
         <Search />
-        {/* <Demo /> */}
         <div>
           <Button
             variant="light"
@@ -35,6 +35,7 @@ export const Header = () => {
           >
             {ACTION_TYPE.ADD_BOOKMARK}
           </Button>
+          <HeaderMenu />
         </div>
       </Group>
       <Sidebar />
