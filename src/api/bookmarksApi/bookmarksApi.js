@@ -27,6 +27,7 @@ import {
   onMoved,
   onRemoved,
   remove,
+  removeTree,
   search,
   update,
 } from "../chromeApi/chromeApi";
@@ -89,6 +90,10 @@ export const searchBookmarks = (searchTerm) => {
 
 export const removeBookmarkOrFolder = (id) => {
   return isDevelopmentEnvironment() ? removeMock(id) : remove(id);
+};
+
+export const removeRecursiveBookmarkOrFolder = (id) => {
+  return isDevelopmentEnvironment() ? removeMock(id) : removeTree(id);
 };
 
 export const registerOnCreated = (callback) => {

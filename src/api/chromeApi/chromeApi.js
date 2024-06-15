@@ -39,6 +39,10 @@ export const remove = (id) => {
   return chrome.bookmarks.remove(id);
 };
 
+export const removeTree = (id) => {
+  return chrome.bookmarks.removeTree(id);
+};
+
 export const onCreated = (callback) => {
   chrome.bookmarks.onCreated.addListener(callback);
 };

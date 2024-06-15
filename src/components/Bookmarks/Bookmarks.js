@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   getBookmarksAtNodeId,
   removeBookmarkOrFolder,
+  removeRecursiveBookmarkOrFolder,
 } from "../../api/bookmarksApi/bookmarksApi";
 import { useContext, useEffect, useState } from "react";
 import {
@@ -67,7 +68,12 @@ export const Bookmarks = () => {
   const onDeleteClick = async (item) => {
     const isBookmark = item && item.url;
 
-    await removeBookmarkOrFolder(item.id)
+    const removeDelegate =
+      !isBookmark && item.children.length > 0
+        ? removeRecursiveBookmarkOrFolder
+        : removeBookmarkOrFolder;
+
+    await removeDelegate(item.id)
       .then((value) => {
         showToast({
           title: "Deleted successfully",
@@ -78,6 +84,7 @@ export const Bookmarks = () => {
         });
       })
       .catch((error) => {
+        console.log(error);
         showToast({
           title: "Apologies",
           message: `There was an issue deleting this ${
