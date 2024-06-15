@@ -33,6 +33,7 @@ function convertNodeToHTML(node) {
     // Folder
     const isPersonal =
       node.title === "Bookmarks bar" ? `PERSONAL_TOOLBAR_FOLDER="true"` : ``;
+
     html += node.title && `<DT><H3 ${isPersonal}>${node.title}</H3>\n`;
     html += "<DL><p>\n";
     node.children.forEach((child) => {

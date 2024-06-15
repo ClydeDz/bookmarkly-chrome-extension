@@ -6,6 +6,8 @@ import {
 } from "@tabler/icons-react";
 import React from "react";
 import { convertJsonToHtml } from "../../utils/export";
+import { useToast } from "../../hooks/useToast";
+import { TOAST_TYPE } from "../../const/app";
 
 const onImportClick = () => {
   try {
@@ -15,36 +17,32 @@ const onImportClick = () => {
   }
 };
 
-const onExportClick = async () => {
-  async function downloadInnerHtml(filename, elId, mimeType) {
-    var elHtml = await convertJsonToHtml();
-
-    // Create a Blob and save it as an HTML file
-    // let blob = new Blob([html], { type: "text/html" });
-    // let url = URL.createObjectURL(blob);
-    // let a = document.createElement("a");
-    // a.href = url;
-    // a.download = "bookmarks.html";
-    // a.click();
-    // URL.revokeObjectURL(url);
-
-    console.log(elHtml);
-    var link = document.createElement("a");
-    mimeType = mimeType || "text/plain";
-
-    link.setAttribute("download", filename);
-    link.setAttribute(
-      "href",
-      "data:" + mimeType + ";charset=utf-8," + encodeURIComponent(elHtml)
-    );
-    link.click();
-  }
-
-  var fileName = "tags.html"; // You can use the .txt extension if you want
-  await downloadInnerHtml(fileName, "main", "text/html");
-};
-
 export const HeaderMenu = () => {
+  const { showToast } = useToast();
+  const onExportClick = async () => {
+    try {
+      var html = await convertJsonToHtml();
+      let blob = new Blob([html], { type: "text/html" });
+      let url = URL.createObjectURL(blob);
+      let a = document.createElement("a");
+      a.href = url;
+      a.download = "bookmarkly.html";
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast({
+        title: "Success",
+        message: `Bookmarks have been exported successfully`,
+        type: TOAST_TYPE.SUCCESS,
+      });
+    } catch {
+      showToast({
+        title: "Apologies",
+        message: `There was an issue exporting bookmarks`,
+        type: TOAST_TYPE.FAILURE,
+      });
+    }
+  };
+
   return (
     <Menu shadow="md" width={200}>
       <Menu.Target>
