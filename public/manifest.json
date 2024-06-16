@@ -1,19 +1,19 @@
 {
   "manifest_version": 3,
   "name": "Bookmarkly",
-  "description": "A simple Chrome Extension created using a template",
+  "description": "Your favorite bookmark manager",
   "version": "0.0.1",
   "author": "Clyde D'Souza",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
+    "128": "icons/icon128.png",
+    "512": "icons/icon512.png"
   },
   "chrome_url_overrides": {
     "bookmarks": "index.html"
   },
   "permissions": [
-    "bookmarks",
-    "tabs"
+    "bookmarks"
   ]
 }
