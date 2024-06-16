@@ -15,6 +15,11 @@ export const ACTION_TYPE = {
   EDIT_BOOKMARK: "Edit a bookmark",
 };
 
+export const BOOKMARK_TYPES = {
+  FOLDER: "folder",
+  LINK: "link", 
+};
+
 export const RECENT_BOOKMARKS_NODE_INFO = [
   {
     dateAdded: 1716273675228,
@@ -32,4 +37,4 @@ export const TOAST_TYPE = {
   NEUTRAL: "NEUTRAL",
 };
 
-export const TOAST_TIMEOUT = 3000;
+export const TOAST_TIMEOUT = 6000;

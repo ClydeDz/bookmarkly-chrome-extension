@@ -84,7 +84,6 @@ export const Bookmarks = () => {
         });
       })
       .catch((error) => {
-        console.log(error);
         showToast({
           title: "Apologies",
           message: `There was an issue deleting this ${

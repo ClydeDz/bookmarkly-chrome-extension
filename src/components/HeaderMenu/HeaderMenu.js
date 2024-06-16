@@ -5,42 +5,20 @@ import {
   IconDotsVertical,
 } from "@tabler/icons-react";
 import React from "react";
-import { convertJsonToHtml } from "../../utils/export";
+import { exportBookmarks } from "../../utils/export";
 import { useToast } from "../../hooks/useToast";
-import { TOAST_TYPE } from "../../const/app";
-
-const onImportClick = () => {
-  try {
-    chrome.tabs.create({ url: "chrome://settings/importData" });
-  } catch {
-    alert("To import data, please go to: chrome://settings/importData");
-  }
-};
+import { onFileUpload } from "../../utils/import";
 
 export const HeaderMenu = () => {
   const { showToast } = useToast();
+  const inputFileRef = React.useRef();
+
+  const onImportClick = () => {
+    inputFileRef.current.click();
+  };
+
   const onExportClick = async () => {
-    try {
-      var html = await convertJsonToHtml();
-      let blob = new Blob([html], { type: "text/html" });
-      let url = URL.createObjectURL(blob);
-      let a = document.createElement("a");
-      a.href = url;
-      a.download = "bookmarkly.html";
-      a.click();
-      URL.revokeObjectURL(url);
-      showToast({
-        title: "Success",
-        message: `Bookmarks have been exported successfully`,
-        type: TOAST_TYPE.SUCCESS,
-      });
-    } catch {
-      showToast({
-        title: "Apologies",
-        message: `There was an issue exporting bookmarks`,
-        type: TOAST_TYPE.FAILURE,
-      });
-    }
+    await exportBookmarks(showToast);
   };
 
   return (
@@ -51,12 +29,21 @@ export const HeaderMenu = () => {
         </Button>
       </Menu.Target>
 
+      <input
+        type="file"
+        id="fileUpload"
+        ref={inputFileRef}
+        accept=".html"
+        hidden
+        onChange={(e) => onFileUpload(e, showToast)}
+      />
+
       <Menu.Dropdown>
         <Menu.Item
-          onClick={onImportClick}
           leftSection={
             <IconUpload style={{ width: rem(14), height: rem(14) }} />
           }
+          onClick={onImportClick}
         >
           Import
         </Menu.Item>
