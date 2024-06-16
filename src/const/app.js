@@ -5,6 +5,8 @@ export const MOBILE_BOOKMARKS_FOLDER = "Mobile bookmarks";
 
 export const RECENT_BOOKMARKS_NODE_ID = "0";
 export const DEFAULT_BOOKMARKS_NODE_ID = "1";
+export const OTHER_BOOKMARKS_NODE_ID = "2";
+export const MOBILE_BOOKMARKS_NODE_ID = "3";
 
 export const NUMBER_OF_RECENT_BOOKMARKS = 5;
 
@@ -17,7 +19,7 @@ export const ACTION_TYPE = {
 
 export const BOOKMARK_TYPES = {
   FOLDER: "folder",
-  LINK: "link", 
+  LINK: "link",
 };
 
 export const RECENT_BOOKMARKS_NODE_INFO = [

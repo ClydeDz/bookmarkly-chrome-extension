@@ -19,7 +19,11 @@ import { IconEdit, IconTrash, IconFolder } from "@tabler/icons-react";
 import { setCurrentNodeId, setItemId } from "../../state/redux/navigationSlice";
 import "./bookmarks.css";
 import { NoBookmarks } from "../NoBookmarks/NoBookmarks";
-import { ACTION_TYPE, TOAST_TYPE } from "../../const/app";
+import {
+  ACTION_TYPE,
+  RECENT_BOOKMARKS_NODE_ID,
+  TOAST_TYPE,
+} from "../../const/app";
 import { setDrawerType } from "../../state/redux/drawerSlice";
 import { useToast } from "../../hooks/useToast";
 import { BookmarkEventsContext } from "../../context/BookmarkEventsContext";
@@ -38,7 +42,9 @@ export const Bookmarks = () => {
       return;
     }
 
-    const results = rawResults.length > 1 ? rawResults : rawResults[0].children;
+    const results =
+      nodeId === RECENT_BOOKMARKS_NODE_ID ? rawResults : rawResults[0].children;
+
     const sortedResults =
       results &&
       results
@@ -58,7 +64,7 @@ export const Bookmarks = () => {
   const onCardClick = (item) => {
     item.url && window.open(item.url, "_blank")?.focus();
 
-    dispatch(setCurrentNodeId(item.id));
+    !item.url && dispatch(setCurrentNodeId(item.id));
   };
 
   const onEditClick = (item) => {

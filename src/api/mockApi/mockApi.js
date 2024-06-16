@@ -9,6 +9,7 @@ import {
   RECENT_BOOKMARKS_NODE_ID,
   RECENT_BOOKMARKS_NODE_INFO,
 } from "../../const/app";
+import { GET_SUBTREE_MOCK_DATA } from "./mockData/getSubtreeData";
 
 export const getTreeMock = () => {
   return Promise.resolve(GET_TREE_MOCK_DATA);
@@ -19,7 +20,7 @@ export const getChildrenMock = (nodeId) => {
     return Promise.resolve([]);
   }
 
-  return Promise.resolve(GET_CHILDREN_MOCK_DATA);
+  return Promise.resolve(GET_SUBTREE_MOCK_DATA);
 };
 
 export const getMock = (nodeId) => {
