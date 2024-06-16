@@ -3,6 +3,7 @@ import {
   IconUpload,
   IconDownload,
   IconDotsVertical,
+  IconCoinFilled,
 } from "@tabler/icons-react";
 import React from "react";
 import { exportBookmarks } from "../../utils/export";
@@ -54,6 +55,19 @@ export const HeaderMenu = () => {
           }
         >
           Export
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item
+          onClick={() =>
+            window.open("https://sponsor.clydedsouza.net/", "_blank")?.focus()
+          }
+          leftSection={
+            <IconCoinFilled
+              style={{ width: rem(16), height: rem(16), marginTop: 2 }}
+            />
+          }
+        >
+          Sponsor this project
         </Menu.Item>
       </Menu.Dropdown>
     </Menu>

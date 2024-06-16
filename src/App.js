@@ -5,6 +5,7 @@ import { store } from "./state/redux/store";
 import { Header } from "./components/Header/Header";
 import { ToastProvider } from "./provider/ToastProvider";
 import { BookmarkEventsProvider } from "./provider/BookmarkEventsProvider";
+import { Footer } from "./components/Footer/Footer";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <ToastProvider>
           <Header />
           <PopulatedPage />
+          <Footer />
         </ToastProvider>
       </BookmarkEventsProvider>
     </Provider>
