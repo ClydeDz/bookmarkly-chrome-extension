@@ -9,15 +9,30 @@ import {
 
 export const onFileUpload = async (e, showToast) => {
   const file = e.target.files[0];
+  const { name } = file;
+  const fileExtension = name.substr(name.lastIndexOf(".") + 1);
 
   if (!file) return;
+
+  if (fileExtension !== "html") {
+    showToast({
+      title: "Incorrect file format",
+      message: `Imported file must be an HTML file`,
+      type: TOAST_TYPE.FAILURE,
+    });
+    return;
+  }
 
   const reader = new FileReader();
 
   reader.onload = async function (e) {
     try {
       const htmlContent = e.target.result;
-      const b2Json = bookmarksToJSON(htmlContent, {});
+      const options = {
+        formatJSON: false,
+        spaces: 2,
+      };
+      const b2Json = bookmarksToJSON(htmlContent, options);
       await importBookmarks(JSON.parse(b2Json));
 
       showToast({
