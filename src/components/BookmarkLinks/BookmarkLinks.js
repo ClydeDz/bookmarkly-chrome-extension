@@ -8,6 +8,7 @@ import {
   OTHER_BOOKMARKS_FOLDER,
   RECENT_BOOKMARKS_FOLDER,
   RECENT_BOOKMARKS_NODE_ID,
+  TOAST_TYPE,
 } from "../../const/app";
 import { truncateString } from "../../utils/string";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,6 +23,7 @@ import {
 import { useContextMenu } from "mantine-contextmenu";
 import { IconTrash, IconPencil } from "@tabler/icons-react";
 import { setDrawerType } from "../../state/redux/drawerSlice";
+import { useToast } from "../../hooks/useToast";
 
 export const BookmarkLinks = () => {
   const bookmarkEventsTriggered = useContext(BookmarkEventsContext);
@@ -29,6 +31,7 @@ export const BookmarkLinks = () => {
   const nodeId = useSelector((state) => state.navigation.currentNodeId);
   const dispatch = useDispatch();
   const [bookmarks, setBookmarks] = useState(null);
+  const { showToast } = useToast();
 
   const loadBookmarkData = async () => {
     setBookmarks(await getBookmarksTree());
@@ -49,14 +52,21 @@ export const BookmarkLinks = () => {
   };
 
   const deleteItem = (item) => {
-    if (item.children && item.children.length > 0) {
+    try {
       removeRecursiveBookmarkOrFolder(item.id);
       dispatch(setCurrentNodeId(DEFAULT_BOOKMARKS_NODE_ID));
-      return;
-    }
 
-    removeBookmarkOrFolder(item.id);
-    dispatch(setCurrentNodeId(DEFAULT_BOOKMARKS_NODE_ID));
+      showToast({
+        title: "Success",
+        message: `Folder has been deleted successfully`,
+      });
+    } catch {
+      showToast({
+        title: "Apologies",
+        message: `This folder couldn't be deleted at this time`,
+        type: TOAST_TYPE.FAILURE,
+      });
+    }
   };
 
   const onEditClick = (item) => {
