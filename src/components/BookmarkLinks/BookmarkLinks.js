@@ -2,19 +2,30 @@ import { NavLink } from "@mantine/core";
 
 import { useContext, useEffect, useState } from "react";
 import {
+  ACTION_TYPE,
   DEFAULT_BOOKMARKS_FOLDER,
+  DEFAULT_BOOKMARKS_NODE_ID,
+  OTHER_BOOKMARKS_FOLDER,
   RECENT_BOOKMARKS_FOLDER,
   RECENT_BOOKMARKS_NODE_ID,
 } from "../../const/app";
 import { truncateString } from "../../utils/string";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrentNodeId } from "../../state/redux/navigationSlice";
+import { setCurrentNodeId, setItemId } from "../../state/redux/navigationSlice";
 import { BookmarkIcons } from "../BookmarkIcons/BookmarkIcons";
 import { BookmarkEventsContext } from "../../context/BookmarkEventsContext";
-import { getBookmarksTree } from "../../api/bookmarksApi/bookmarksApi";
+import {
+  getBookmarksTree,
+  removeBookmarkOrFolder,
+  removeRecursiveBookmarkOrFolder,
+} from "../../api/bookmarksApi/bookmarksApi";
+import { useContextMenu } from "mantine-contextmenu";
+import { IconTrash, IconPencil } from "@tabler/icons-react";
+import { setDrawerType } from "../../state/redux/drawerSlice";
 
 export const BookmarkLinks = () => {
   const bookmarkEventsTriggered = useContext(BookmarkEventsContext);
+  const { showContextMenu } = useContextMenu();
   const nodeId = useSelector((state) => state.navigation.currentNodeId);
   const dispatch = useDispatch();
   const [bookmarks, setBookmarks] = useState(null);
@@ -37,6 +48,50 @@ export const BookmarkLinks = () => {
     return item.children.some((child) => !child.url);
   };
 
+  const deleteItem = (item) => {
+    if (item.children && item.children.length > 0) {
+      removeRecursiveBookmarkOrFolder(item.id);
+      dispatch(setCurrentNodeId(DEFAULT_BOOKMARKS_NODE_ID));
+      return;
+    }
+
+    removeBookmarkOrFolder(item.id);
+    dispatch(setCurrentNodeId(DEFAULT_BOOKMARKS_NODE_ID));
+  };
+
+  const onEditClick = (item) => {
+    dispatch(setItemId(item.id));
+    if (item.url) {
+      dispatch(setDrawerType(ACTION_TYPE.EDIT_BOOKMARK));
+    } else {
+      dispatch(setDrawerType(ACTION_TYPE.EDIT_FOLDER));
+    }
+  };
+
+  const renderContextMenu = (menuItem) => {
+    const isDefaultFolder =
+      menuItem.title === DEFAULT_BOOKMARKS_FOLDER ||
+      menuItem.title === OTHER_BOOKMARKS_FOLDER;
+
+    return !isDefaultFolder
+      ? showContextMenu([
+          {
+            key: "edit",
+            icon: <IconPencil size={16} />,
+            title: `Edit`,
+            onClick: () => onEditClick(menuItem),
+          },
+          {
+            key: "delete",
+            icon: <IconTrash size={16} />,
+            title: `Delete ${menuItem.title}`,
+            onClick: () => deleteItem(menuItem),
+            color: "red",
+          },
+        ])
+      : undefined;
+  };
+
   const renderNavItems = (menuItem) => {
     if (!Array.isArray(menuItem)) return;
 
@@ -54,6 +109,7 @@ export const BookmarkLinks = () => {
             variant="filled"
             active={item.id === nodeId}
             leftSection={<BookmarkIcons bookmarkLabel={item.title} />}
+            onContextMenu={renderContextMenu(item)}
           >
             {renderNavItems(item.children)}
           </NavLink>
@@ -69,6 +125,7 @@ export const BookmarkLinks = () => {
           variant="filled"
           active={item.id === nodeId}
           leftSection={<BookmarkIcons bookmarkLabel={item.title} />}
+          onContextMenu={renderContextMenu(item)}
         />
       );
     });

@@ -33,6 +33,11 @@ export const Bookmarks = () => {
 
   const loadBookmarkData = async () => {
     const rawResults = await getBookmarksAtNodeId(nodeId);
+    if (!rawResults || rawResults.length === 0) {
+      setBookmarks([]);
+      return;
+    }
+
     const results = rawResults.length > 1 ? rawResults : rawResults[0].children;
     const sortedResults =
       results &&
@@ -103,8 +108,9 @@ export const Bookmarks = () => {
       direction="row"
       wrap={"wrap"}
     >
-      {bookmarks.length < 1 && <NoBookmarks />}
-      {bookmarks.length > 0 &&
+      {bookmarks && bookmarks.length < 1 && <NoBookmarks />}
+      {bookmarks &&
+        bookmarks.length > 0 &&
         bookmarks.map((item) => {
           return (
             <Paper
