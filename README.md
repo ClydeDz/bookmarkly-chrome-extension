@@ -1,7 +1,16 @@
-# bookmarkly-chrome-extension
+# Bookmarkly
 
-// https://mantine.dev/core/grid/#multiple-rows
-// https://stackoverflow.com/a/15750809/11480716
-// https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.stackoverflow.com&sz=128
-// https://www.google.com/s2/favicons?domain=dev.to&sz=128
-// https://icons.duckduckgo.com/ip3/dev.to.ico
+Your favorite bookmark manager.
+
+Notable features include:
+
+- Clean interface to manage your Chrome bookmarks
+- Easily add a bookmark or folder with a click of a button
+- View recently added bookmarks
+- Quickly search your saved bookmarks and folders
+- Delete individual items or entire directories
+- Import or export bookmarks
+
+## Credits
+
+Developed by [Clyde D'Souza](https://clydedsouza.net/)
