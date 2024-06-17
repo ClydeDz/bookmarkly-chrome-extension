@@ -16,8 +16,7 @@ import { setCurrentNodeId, setItemId } from "../../state/redux/navigationSlice";
 import { BookmarkIcons } from "../BookmarkIcons/BookmarkIcons";
 import { BookmarkEventsContext } from "../../context/BookmarkEventsContext";
 import {
-  getBookmarksTree,
-  removeBookmarkOrFolder,
+  getBookmarksTree, 
   removeRecursiveBookmarkOrFolder,
 } from "../../api/bookmarksApi/bookmarksApi";
 import { useContextMenu } from "mantine-contextmenu";
